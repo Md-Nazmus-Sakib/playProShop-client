@@ -5,7 +5,7 @@ import {
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
 
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import logo from "@/assets/images/PlayProLogo.jpg";
 import { Button } from "@/components/ui/button";
 import {
@@ -29,17 +29,21 @@ export default function Navbar() {
   return (
     <div className="">
       <div className="flex items-center justify-between border-b-2 border-[#F14902] py-3">
-        <Link to="/" className="flex items-center">
-          <img className="w-20 h-20 rounded-full ml-5 " src={logo} alt="" />
-        </Link>
+        <NavLink to="/" className="flex items-center">
+          <img
+            className="w-20 h-20 rounded-full ml-5 "
+            src={logo}
+            alt="PlayProLogo"
+          />
+        </NavLink>
         <div className="hidden md:block mr-5">
           <NavigationMenu>
             <NavigationMenuList className="flex justify-end">
               {components.map((component, index) => (
                 <NavigationMenuItem key={index}>
                   <NavLink to={component.link}>
-                    <NavigationMenuLink>
-                      <button className="relative px-8 py-2 rounded-md bg-white isolation-auto z-10 border-2 border-[#F14902] before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full hover:text-white before:-right-full before:hover:right-0 before:rounded-full before:bg-[#F14902] before:-z-10 before:aspect-square before:hover:scale-150 overflow-hidden before:hover:duration-700 inline-flex items-center justify-center px-4 py-3 text-sm font-semibold text-black bg-white border border-gray-200 rounded-lg shadow-sm gap-x-2 hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none ">
+                    <NavigationMenuLink asChild>
+                      <button className="relative px-8 py-2 rounded-md bg-white isolation-auto z-10 border-2 border-[#F14902] before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full hover:text-white before:-right-full before:hover:right-0 before:rounded-full before:bg-[#F14902] before:-z-10 before:aspect-square before:hover:scale-150 overflow-hidden before:hover:duration-700 inline-flex items-center justify-center px-4 py-3 text-sm font-semibold text-black bg-white border border-gray-200 rounded-lg shadow-sm gap-x-2 hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none">
                         {component.title}
                       </button>
                     </NavigationMenuLink>
@@ -68,14 +72,11 @@ export default function Navbar() {
                 </svg>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuSeparator />
             <DropdownMenuContent className="w-56 left-0 mt-2 md:hidden">
               {components.map((component, index) => (
                 <DropdownMenuItem key={index} className="w-full">
-                  <NavLink to={component.link}>
-                    <span>{component.title}</span>
-                    <DropdownMenuSeparator className="w-full hover:bg-gray-200 active:bg-blue-500" />
-                  </NavLink>
+                  <NavLink to={component.link}>{component.title}</NavLink>
+                  <DropdownMenuSeparator className="w-full hover:bg-gray-200 active:bg-blue-500" />
                 </DropdownMenuItem>
               ))}
               <DropdownMenuSeparator />

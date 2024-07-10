@@ -1,4 +1,5 @@
 import Category from "../category/Category";
+import ContactUs from "../contactus/ContactUs";
 import Header from "../header/Header";
 
 const Home = () => {
@@ -6,6 +7,7 @@ const Home = () => {
     <div>
       <Header></Header>
       <Category></Category>
+      <ContactUs></ContactUs>
     </div>
   );
 };
