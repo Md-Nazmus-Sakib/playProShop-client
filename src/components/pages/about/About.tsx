@@ -1,7 +1,13 @@
+import ContactInfo from "./ContactInfo";
+import Mission from "./Mission";
+import Overview from "./Overview";
+
 const About = () => {
   return (
     <div>
-      <h1>This is About page</h1>
+      <Overview></Overview>
+      <Mission></Mission>
+      <ContactInfo></ContactInfo>
     </div>
   );
 };
