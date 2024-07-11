@@ -15,8 +15,15 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { FormSchema } from "./CreateProductValidation";
+import { useAddProductMutation } from "@/redux/api/api";
+import { toast } from "sonner";
+
+// Infer the form data type from the schema
+type FormData = z.infer<typeof FormSchema>;
 
 const CreateProduct = () => {
+  const [addProduct] = useAddProductMutation();
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -32,9 +39,17 @@ const CreateProduct = () => {
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data);
-  }
+  const onSubmit = async (data: FormData) => {
+    try {
+      const res = await addProduct({ data }).unwrap();
+
+      if (res?.success) {
+        toast.success(res?.message);
+      }
+    } catch (err) {
+      console.error("Error:", err);
+    }
+  };
 
   return (
     <div className="bg-black p-8 text-white rounded-lg">
@@ -55,9 +70,10 @@ const CreateProduct = () => {
                   name="productName"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel>Product Name</FormLabel>
+                      <FormLabel htmlFor="productName">Product Name</FormLabel>
                       <FormControl>
                         <Input
+                          id="productName"
                           className="text-black"
                           placeholder="Enter your product name"
                           {...field}
@@ -72,9 +88,10 @@ const CreateProduct = () => {
                   name="category"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel>Category</FormLabel>
+                      <FormLabel htmlFor="category">Category</FormLabel>
                       <FormControl>
                         <Input
+                          id="category"
                           className="text-black"
                           placeholder="Enter the category"
                           {...field}
@@ -91,9 +108,10 @@ const CreateProduct = () => {
                   name="brand"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel>Brand</FormLabel>
+                      <FormLabel htmlFor="brand">Brand</FormLabel>
                       <FormControl>
                         <Input
+                          id="brand"
                           className="text-black"
                           placeholder="Enter the brand name"
                           {...field}
@@ -108,12 +126,15 @@ const CreateProduct = () => {
                   name="stockQuantity"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel>Stock Quantity</FormLabel>
+                      <FormLabel htmlFor="stockQuantity">
+                        Stock Quantity
+                      </FormLabel>
                       <FormControl>
                         <Input
+                          id="stockQuantity"
                           className="text-black"
                           placeholder="Enter the stock quantity"
-                          type="text"
+                          type="number"
                           {...field}
                         />
                       </FormControl>
@@ -128,9 +149,10 @@ const CreateProduct = () => {
                   name="description"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel>Description</FormLabel>
+                      <FormLabel htmlFor="description">Description</FormLabel>
                       <FormControl>
                         <Textarea
+                          id="description"
                           className="text-black"
                           placeholder="Enter the product short description"
                           {...field}
@@ -146,9 +168,10 @@ const CreateProduct = () => {
                   name="details"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel>Details</FormLabel>
+                      <FormLabel htmlFor="details">Details</FormLabel>
                       <FormControl>
                         <Textarea
+                          id="details"
                           className="text-black"
                           placeholder="Enter product details"
                           {...field}
@@ -165,12 +188,13 @@ const CreateProduct = () => {
                   name="price"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel>Price</FormLabel>
+                      <FormLabel htmlFor="price">Price</FormLabel>
                       <FormControl>
                         <Input
+                          id="price"
                           className="text-black"
-                          placeholder="Enter the price"
-                          type="text"
+                          placeholder="0"
+                          type="number"
                           {...field}
                         />
                       </FormControl>
@@ -183,9 +207,10 @@ const CreateProduct = () => {
                   name="image"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel>Image URL</FormLabel>
+                      <FormLabel htmlFor="image">Image URL</FormLabel>
                       <FormControl>
                         <Input
+                          id="image"
                           className="text-black"
                           placeholder="Enter the image URL"
                           {...field}
@@ -201,7 +226,7 @@ const CreateProduct = () => {
                 name="rating"
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormLabel>Rating</FormLabel>
+                    <FormLabel htmlFor="rating">Rating</FormLabel>
                     <FormControl>
                       <StarRatings
                         rating={Number(field.value) || 0} // Ensure rating is always a number
