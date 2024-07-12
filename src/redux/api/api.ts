@@ -6,13 +6,13 @@ export const baseApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/api" }),
   tagTypes: ["product"],
   endpoints: (builder) => ({
-    // getMovies: builder.query({
-    //   query: () => ({
-    //     url: "/movies",
-    //     method: "GET",
-    //   }),
-    //   providesTags: ["movies"],
-    // }),
+    getProduct: builder.query({
+      query: () => ({
+        url: "/product",
+        method: "GET",
+      }),
+      providesTags: ["product"],
+    }),
     // getSingleMovie: builder.query({
     //   query: (slug) => ({
     //     url: `/movies/${slug}`,
@@ -69,4 +69,4 @@ export const baseApi = createApi({
   }),
 });
 
-export const { useAddProductMutation } = baseApi;
+export const { useAddProductMutation, useGetProductQuery } = baseApi;
