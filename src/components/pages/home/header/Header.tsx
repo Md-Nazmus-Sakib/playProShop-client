@@ -1,75 +1,71 @@
-import { Card, CardContent } from "@/components/ui/card";
-import Autoplay from "embla-carousel-autoplay";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import sliderImage1 from "@/assets/images/image-1.jpg";
-import sliderImage2 from "@/assets/images/image-2.jpg";
-import sliderImage3 from "@/assets/images/image-3.jpg";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+
+import banner_1 from "@/assets/images/productBanner/img-1.png";
+import banner_2 from "@/assets/images/productBanner/img-2.png";
+import banner_3 from "@/assets/images/productBanner/img-3.png";
+import banner_4 from "@/assets/images/productBanner/img-4.png";
+import banner_5 from "@/assets/images/productBanner/img-5.png";
 
 const Header = () => {
-  const sliderData = [
-    {
-      id: 1,
-      image: sliderImage1,
-    },
-    {
-      id: 2,
-      image: sliderImage2,
-    },
-    {
-      id: 3,
-      image: sliderImage3,
-    },
-  ];
+  const settings = {
+    arrows: false,
+    infinite: true,
+    speed: 3000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    fade: true,
+
+    autoplay: true,
+    autoplaySpeed: 2500,
+  };
+
+  const keyframes = `
+    @keyframes animateBg {
+        100% {
+            filter: hue-rotate(360deg);
+        }
+    }
+`;
 
   return (
-    <div className="relative w-full h-[500px] mt-6">
-      <Carousel
-        className=" overflow-hidden rounded-lg shadow-lg"
-        plugins={[
-          Autoplay({
-            delay: 6000,
-          }),
-        ]}
-      >
-        <CarouselContent className="flex">
-          {sliderData.map((slider) => (
-            <CarouselItem key={slider.id} className="min-w-full">
-              <Card className="bg-transparent">
-                <CardContent className="flex items-center justify-center h-[500px] p-0">
-                  <img
-                    src={slider?.image}
-                    className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
-                    alt=""
-                  />
-                </CardContent>
-              </Card>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious className="absolute z-50 left-4 top-1/2 transform -translate-y-1/2 text-white bg-black bg-opacity-50 p-2 rounded-full cursor-pointer hover:bg-opacity-75 transition-opacity duration-300">
-          &#9664;
-        </CarouselPrevious>
-        <CarouselNext className="absolute z-50 right-4 top-1/2 transform -translate-y-1/2 text-white bg-black bg-opacity-50 p-2 rounded-full cursor-pointer hover:bg-opacity-75 transition-opacity duration-300">
-          &#9654;
-        </CarouselNext>
-      </Carousel>
-      <div className="absolute bg-black opacity-50 top-0 w-full h-[500px] rounded-lg "></div>
-      <div className="absolute top-0 w-full h-full z-10 text-white flex justify-center items-center">
-        <div>
-          <h1 className="text-3xl md:text-5xl text-white shadow-2xl font-extrabold shadow-black text-center">
-            Explore the Best Sporting Goods
-          </h1>
-          <div className="w-full h-full text-white flex justify-center items-center mt-8">
-            <button className="bg-[#F14902] hover:bg-orange-700 text-white text-xl font-bold py-3 px-8 rounded-lg animate-pulse border ">
+    <div className="my-12 ">
+      <style>{keyframes}</style>
+      <div className="py-4 rounded-xl relative min-h-[600px] flex justify-center items-center flex-col md:flex-row bg-[#D8E7CF] text-black  overflow-hidden">
+        <div className="w-full md:w-1/2 flex justify-center items-center relative pb-20">
+          <div className="w-full p-4 text-center mx-auto mb-4">
+            <h2 className="text-5xl md:text-3xl lg:text-5xl font-extrabold my-8 uppercase tracking-wide flex justify-start">
+              Explore the Best
+            </h2>
+            <h1 className="text-7xl md:text-5xl lg:text-7xl font-extrabold my-8 uppercase text-[#F14902] tracking-wide">
+              30% OFF
+            </h1>
+            <h2 className="text-5xl md:text-3xl lg:text-5xl font-extrabold my-8 uppercase tracking-wide flex justify-end">
+              Sporting Goods
+            </h2>
+            <button className="bg-[#F14902] hover:bg-orange-700 text-white text-xl font-bold py-3 px-8 rounded-lg animate-pulse">
               Buy Now
             </button>
           </div>
+          <div className="absolute bottom-8 animate-bounce w-12 h-12"></div>
+        </div>
+
+        <div
+          className="w-full h-full md:w-1/2"
+          style={{ animation: "animateBg 10s linear infinite" }}
+        >
+          <Slider {...settings}>
+            <img className="w-full" src={banner_1} alt="" />
+
+            <img className="w-full" src={banner_2} alt="" />
+
+            <img className="w-full" src={banner_3} alt="" />
+
+            <img className="w-full" src={banner_4} alt="" />
+
+            <img className="w-full" src={banner_5} alt="" />
+          </Slider>
         </div>
       </div>
     </div>

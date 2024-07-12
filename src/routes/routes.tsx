@@ -1,5 +1,6 @@
 import MainLayout from "@/components/layout/MainLayout";
 import About from "@/components/pages/about/About";
+import AllProduct from "@/components/pages/allProduct/allProduct/AllProduct";
 
 import CreateProduct from "@/components/pages/createProduct/CreateProduct";
 import Home from "@/components/pages/home/home/Home";
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: "create-product",
         element: <CreateProduct></CreateProduct>,
+      },
+      {
+        path: "product",
+        element: <AllProduct></AllProduct>,
       },
     ],
   },
