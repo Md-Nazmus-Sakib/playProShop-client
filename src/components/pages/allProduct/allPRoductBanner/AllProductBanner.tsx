@@ -28,7 +28,7 @@ const AllProductBanner = () => {
   ];
 
   return (
-    <div className="relative w-full h-[500px] mt-6">
+    <div className="relative w-full h-[300px] mt-6">
       <Carousel
         className=" overflow-hidden rounded-lg shadow-lg"
         plugins={[
@@ -41,7 +41,7 @@ const AllProductBanner = () => {
           {sliderData.map((slider) => (
             <CarouselItem key={slider.id} className="min-w-full">
               <Card className="bg-transparent">
-                <CardContent className="flex items-center justify-center h-[500px] p-0">
+                <CardContent className="flex items-center justify-center h-[300px] p-0">
                   <img
                     src={slider?.image}
                     className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
@@ -59,7 +59,7 @@ const AllProductBanner = () => {
           &#9654;
         </CarouselNext>
       </Carousel>
-      <div className="absolute bg-black opacity-50 top-0 w-full h-[500px] rounded-lg "></div>
+      <div className="absolute bg-black opacity-50 top-0 w-full h-[300px] rounded-lg "></div>
       <div className="absolute top-0 w-full h-full z-10 text-white flex justify-center items-center">
         <div>
           <h1 className="text-3xl md:text-5xl text-white shadow-2xl font-extrabold shadow-black text-center">
