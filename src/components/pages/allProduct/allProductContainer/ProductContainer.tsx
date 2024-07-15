@@ -1,15 +1,18 @@
-const ProductContainer = () => {
+import { TProduct } from "../../home/featuredProduct/FeatureProductType";
+import AllPRoductCard from "./AllPRoductCard";
+// Adjust the path according to your folder structure
+
+interface ProductContainerProps {
+  products: TProduct[];
+}
+
+const ProductContainer = ({ products }: ProductContainerProps) => {
   return (
-    <div className="border border-red-500 col-span-3 h-[500px]">
-      <div className="card">
-        <div className="card__image"></div>
-        <div className="card__content">
-          <span className="title">Title card</span>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
-            blandit vitae orci quis dignissim.
-          </p>
-        </div>
+    <div className=" col-span-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-between my-12">
+        {products.map((product: TProduct) => (
+          <AllPRoductCard key={product._id} product={product} />
+        ))}
       </div>
     </div>
   );
