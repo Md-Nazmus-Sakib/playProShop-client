@@ -4,22 +4,42 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/api" }),
-  tagTypes: ["product"],
+  tagTypes: ["products", "queries"],
   endpoints: (builder) => ({
     getProduct: builder.query({
+      query: ({ category, brand, minPrice, maxPrice, rating }) => {
+        const params = new URLSearchParams();
+        if (category) {
+          params.append("category", category);
+        }
+        if (brand) {
+          params.append("brand", brand);
+        }
+        if (minPrice !== undefined) {
+          params.append("minPrice", minPrice.toString());
+        }
+        if (maxPrice !== undefined) {
+          params.append("maxPrice", maxPrice.toString());
+        }
+        if (rating !== undefined) {
+          params.append("rating", rating.toString());
+        }
+        return {
+          url: `/product`,
+          method: "GET",
+          params: params,
+        };
+      },
+
+      providesTags: ["products"],
+    }),
+    getQuery: builder.query({
       query: () => ({
-        url: "/product",
+        url: `/query`,
         method: "GET",
       }),
-      providesTags: ["product"],
+      providesTags: ["queries"],
     }),
-    // getSingleMovie: builder.query({
-    //   query: (slug) => ({
-    //     url: `/movies/${slug}`,
-    //     method: "GET",
-    //   }),
-    //   providesTags: ["movies"],
-    // }),
 
     addProduct: builder.mutation({
       query: (data) => {
@@ -69,4 +89,5 @@ export const baseApi = createApi({
   }),
 });
 
-export const { useAddProductMutation, useGetProductQuery } = baseApi;
+export const { useAddProductMutation, useGetProductQuery, useGetQueryQuery } =
+  baseApi;
