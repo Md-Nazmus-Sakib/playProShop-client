@@ -8,8 +8,8 @@ interface ProductContainerProps {
 
 const ProductContainer = ({ products }: ProductContainerProps) => {
   return (
-    <div className=" col-span-3">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-between my-12">
+    <div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-between">
         {products.map((product: TProduct) => (
           <AllPRoductCard key={product._id} product={product} />
         ))}

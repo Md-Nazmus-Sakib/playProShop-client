@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { TProduct } from "../../home/featuredProduct/FeatureProductType";
 import { Label } from "@radix-ui/react-label";
 import StarRatings from "react-star-ratings";
+import { Link } from "react-router-dom";
 
 const AllPRoductCard = ({ product }: { product: TProduct }) => {
   const {
@@ -86,9 +87,12 @@ const AllPRoductCard = ({ product }: { product: TProduct }) => {
       </div>
 
       <div className="flex gap-4 absolute bottom-0 w-full ">
-        <Button className="  flex-auto rounded-[1.4rem_1.4rem_0.7rem_0.7rem] border-[none] py-2 px-[0.5rem_0] bg-[#F14902] text-white font-extrabold cursor-pointer">
-          Details
-        </Button>
+        <Link
+          to={`/product/${_id}`}
+          className="  flex-auto rounded-[1.4rem_1.4rem_0.7rem_0.7rem] border-[none] py-2 px-[0.5rem_0] bg-[#F14902] text-white font-extrabold cursor-pointer text-center"
+        >
+          details
+        </Link>
         <Button className="grid place-content-center items-end w-12 rounded-[1.4rem_1.4rem_0.7rem_0.7rem] border-[none] py-2 px-[0.5rem_0] bg-[#F14902] text-white font-extrabold cursor-pointer">
           <svg
             viewBox="0 0 27.97 25.074"

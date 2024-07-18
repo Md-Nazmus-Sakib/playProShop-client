@@ -6,7 +6,7 @@ import { DialogTitle } from "@radix-ui/react-dialog";
 
 const FilterAndSearchField = () => {
   return (
-    <div className=" col-span-1 h-full md:sticky top-0">
+    <div className="">
       <div className="md:hidden">
         <Dialog>
           <DialogTrigger asChild>

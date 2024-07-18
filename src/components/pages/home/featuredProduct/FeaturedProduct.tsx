@@ -4,7 +4,11 @@ import FeaturedProductCard from "./FeaturedProductCard";
 import { TProduct } from "./FeatureProductType";
 
 const FeaturedProduct = () => {
-  const { data: featuredProducts, isLoading, isError } = useGetProductQuery({});
+  const {
+    data: featuredProducts,
+    isLoading,
+    isError,
+  } = useGetProductQuery({ sort: "-createdAt", limit: 6 });
   if (isLoading) {
     return <Loader></Loader>;
   }

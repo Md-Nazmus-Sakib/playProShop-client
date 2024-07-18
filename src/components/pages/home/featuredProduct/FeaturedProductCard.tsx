@@ -5,6 +5,7 @@ import "./FeaturedProductCard.css";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { TProduct } from "./FeatureProductType";
+import { Link } from "react-router-dom";
 
 const FeaturedProductCard = ({
   featuredProduct,
@@ -12,6 +13,7 @@ const FeaturedProductCard = ({
   featuredProduct: TProduct;
 }) => {
   const {
+    _id,
     productName,
     description,
     category,
@@ -88,9 +90,12 @@ const FeaturedProductCard = ({
       </div>
 
       <div className="flex gap-4">
-        <Button className="  flex-auto rounded-[1.4rem_1.4rem_0.7rem_0.7rem] border-[none] py-2 px-[0.5rem_0] bg-[#F14902] text-white font-extrabold cursor-pointer">
-          Details
-        </Button>
+        <Link
+          to={`/product/${_id}`}
+          className="  flex-auto rounded-[1.4rem_1.4rem_0.7rem_0.7rem] border-[none] py-2 px-[0.5rem_0] bg-[#F14902] text-white font-extrabold cursor-pointer text-center"
+        >
+          details
+        </Link>
         <Button className="grid place-content-center w-12 rounded-[1.4rem_1.4rem_0.7rem_0.7rem] border-[none] py-2 px-[0.5rem_0] bg-[#F14902] text-white font-extrabold cursor-pointer">
           <svg
             viewBox="0 0 27.97 25.074"

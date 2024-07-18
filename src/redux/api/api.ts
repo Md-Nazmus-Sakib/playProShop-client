@@ -7,22 +7,41 @@ export const baseApi = createApi({
   tagTypes: ["products", "queries"],
   endpoints: (builder) => ({
     getProduct: builder.query({
-      query: ({ category, brand, minPrice, maxPrice, rating }) => {
+      query: ({
+        category,
+        brand,
+        minPrice,
+        maxPrice,
+        rating,
+        sort,
+        searchTerm,
+        limit,
+      }) => {
         const params = new URLSearchParams();
+
+        if (searchTerm) {
+          params.append("searchTerm", searchTerm);
+        }
         if (category) {
           params.append("category", category);
         }
         if (brand) {
           params.append("brand", brand);
         }
-        if (minPrice !== undefined) {
+        if (minPrice !== undefined && minPrice > 0) {
           params.append("minPrice", minPrice.toString());
         }
-        if (maxPrice !== undefined) {
+        if (maxPrice !== undefined && maxPrice > 100) {
           params.append("maxPrice", maxPrice.toString());
         }
-        if (rating !== undefined) {
+        if (rating !== undefined && rating > 0) {
           params.append("rating", rating.toString());
+        }
+        if (sort !== undefined) {
+          params.append("sort", sort);
+        }
+        if (limit !== undefined) {
+          params.append("limit", limit);
         }
         return {
           url: `/product`,
@@ -39,6 +58,13 @@ export const baseApi = createApi({
         method: "GET",
       }),
       providesTags: ["queries"],
+    }),
+
+    getSingleProduct: builder.query({
+      query: (id) => ({
+        url: `/product/${id}`,
+        method: "GET",
+      }),
     }),
 
     addProduct: builder.mutation({
@@ -89,5 +115,9 @@ export const baseApi = createApi({
   }),
 });
 
-export const { useAddProductMutation, useGetProductQuery, useGetQueryQuery } =
-  baseApi;
+export const {
+  useAddProductMutation,
+  useGetProductQuery,
+  useGetQueryQuery,
+  useGetSingleProductQuery,
+} = baseApi;
