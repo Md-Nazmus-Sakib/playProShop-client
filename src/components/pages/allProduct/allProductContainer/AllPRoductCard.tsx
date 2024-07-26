@@ -4,8 +4,11 @@ import { TProduct } from "../../home/featuredProduct/FeatureProductType";
 import { Label } from "@radix-ui/react-label";
 import StarRatings from "react-star-ratings";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addItemToCart } from "@/redux/features/cartSlice";
 
 const AllPRoductCard = ({ product }: { product: TProduct }) => {
+  const dispatch = useDispatch();
   const {
     _id,
     productName,
@@ -17,6 +20,11 @@ const AllPRoductCard = ({ product }: { product: TProduct }) => {
     price,
     image,
   } = product;
+
+  const handleAddToCart = (id: string) => {
+    dispatch(addItemToCart({ id, quantity: 1 }));
+  };
+
   return (
     <div className="relative my-8 flex flex-col border border-[#F14902] bg-amber-100 rounded-xl bg-clip-border text-gray-700 shadow-md hover:scale-105 transition-transform duration-300">
       <div className="relative mx-4 -mt-6 h-40  rounded-xl bg-blue-gray-500 border border-[#F14902] bg-clip-border text-white shadow-lg shadow-blue-gray-500/40 bg-gradient-to-r from-blue-500 to-blue-600">
@@ -93,7 +101,11 @@ const AllPRoductCard = ({ product }: { product: TProduct }) => {
         >
           details
         </Link>
-        <Button className="grid place-content-center items-end w-12 rounded-[1.4rem_1.4rem_0.7rem_0.7rem] border-[none] py-2 px-[0.5rem_0] bg-[#F14902] text-white font-extrabold cursor-pointer">
+        <Button
+          type="button"
+          onClick={() => handleAddToCart(_id)}
+          className="grid place-content-center items-end w-12 rounded-[1.4rem_1.4rem_0.7rem_0.7rem] border-[none] py-2 px-[0.5rem_0] bg-[#F14902] text-white font-extrabold cursor-pointer"
+        >
           <svg
             viewBox="0 0 27.97 25.074"
             xmlns="http://www.w3.org/2000/svg"
