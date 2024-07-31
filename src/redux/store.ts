@@ -3,12 +3,16 @@ import { baseApi } from "./api/api";
 import filtersReducer from "./features/querySlice";
 import cartReducer from "./features/cartSlice";
 import productIdReducer from "./features/productIdSlice";
+
+import orderSummaryReducer from "./features/orderSummarySlice";
 export const store = configureStore({
   reducer: {
     [baseApi.reducerPath]: baseApi.reducer,
     filters: filtersReducer,
     cart: cartReducer,
     productId: productIdReducer,
+
+    orderSummary: orderSummaryReducer,
   },
   middleware: (getDefaultMiddlewares) =>
     getDefaultMiddlewares().concat(baseApi.middleware),

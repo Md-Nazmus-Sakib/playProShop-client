@@ -1,17 +1,14 @@
 import { useGetSingleProductQuery } from "@/redux/api/api";
 import { Loader } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import StarRatings from "react-star-ratings";
-
 import { useDispatch } from "react-redux";
 
 import { setProductId } from "@/redux/features/productIdSlice";
 
 const SingleProductDetails = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { id } = useParams();
   const { data: product, isLoading, isError } = useGetSingleProductQuery(id);
 
@@ -19,8 +16,9 @@ const SingleProductDetails = () => {
     return <Loader></Loader>;
   }
   if (isError) {
-    return isError;
+    return <div>Error loading product.</div>;
   }
+
   const {
     _id,
     productName,
@@ -33,40 +31,31 @@ const SingleProductDetails = () => {
     image,
     details,
   } = product.data;
-
   const handleClick = (id: string) => {
     dispatch(setProductId(id));
-    navigate("/checkout");
   };
-
   return (
     <div className="md:flex gap-4 my-12">
       <div className="flex-1">
         <img className="w-full max-h-[500px]" src={image} alt="" />
         {details && (
           <div className="grid grid-cols-3 gap-4 border-b-2 shadow-md my-12 p-2">
-            <h1
-              style={{ shapeOutside: "circle()" }}
-              className="flex justify-between text-3xl font-semibold"
-            >
+            <h1 className="flex justify-between text-3xl font-semibold">
               <span> Details </span> <span>:</span>
             </h1>
-            <p className="text-2xl font-semibold text-slate-700 col-span-2 break-words ">
+            <p className="text-2xl font-semibold text-slate-700 col-span-2 break-words">
               {details}
             </p>
           </div>
         )}
       </div>
-      <div className="flex-1 ">
+      <div className="flex-1">
         {description && (
           <div className="grid grid-cols-3 gap-4 border-b-2 shadow-md p-2">
-            <h1
-              style={{ shapeOutside: "circle()" }}
-              className="flex justify-between text-3xl font-semibold  "
-            >
+            <h1 className="flex justify-between text-3xl font-semibold">
               <span> Description </span> <span>:</span>
             </h1>
-            <p className="text-2xl font-semibold text-slate-700 col-span-2  break-words">
+            <p className="text-2xl font-semibold text-slate-700 col-span-2 break-words">
               {description}
             </p>
           </div>
@@ -74,7 +63,7 @@ const SingleProductDetails = () => {
         {productName && (
           <div className="grid grid-cols-3 gap-4 my-4 border-b-2 shadow-md p-2">
             <h2 className="text-xl font-semibold flex justify-between">
-              <span> Product Name</span> <span>:</span>{" "}
+              <span> Product Name</span> <span>:</span>
             </h2>
             <p className="text-lg font-bold text-slate-500 col-span-2">
               {productName}
@@ -84,7 +73,7 @@ const SingleProductDetails = () => {
         {brand && (
           <div className="grid grid-cols-3 gap-4 my-4 border-b-2 shadow-md p-2">
             <h2 className="text-xl font-semibold flex justify-between">
-              <span> Brand Name</span> <span>:</span>{" "}
+              <span> Brand Name</span> <span>:</span>
             </h2>
             <p className="text-lg font-bold text-slate-500 col-span-2">
               {brand}
@@ -94,7 +83,7 @@ const SingleProductDetails = () => {
         {category && (
           <div className="grid grid-cols-3 gap-4 my-4 border-b-2 shadow-md p-2">
             <h2 className="text-xl font-semibold flex justify-between">
-              <span> Category Name</span> <span>:</span>{" "}
+              <span> Category Name</span> <span>:</span>
             </h2>
             <p className="text-lg font-bold text-slate-500 col-span-2">
               {category}
@@ -104,7 +93,7 @@ const SingleProductDetails = () => {
         {stockQuantity && (
           <div className="grid grid-cols-3 gap-4 my-4 border-b-2 shadow-md p-2">
             <h2 className="text-xl font-semibold flex justify-between">
-              <span> Stock Quantity</span> <span>:</span>{" "}
+              <span> Stock Quantity</span> <span>:</span>
             </h2>
             <p className="text-lg font-bold text-slate-500 col-span-2">
               {stockQuantity}
@@ -114,7 +103,7 @@ const SingleProductDetails = () => {
         {price && (
           <div className="grid grid-cols-3 gap-4 my-4 border-b-2 shadow-md p-2">
             <h2 className="text-xl font-semibold flex justify-between">
-              <span> Price</span> <span>:</span>{" "}
+              <span> Price</span> <span>:</span>
             </h2>
             <p className="text-lg font-bold text-slate-500 col-span-2">
               {price}
@@ -124,7 +113,7 @@ const SingleProductDetails = () => {
         {rating && (
           <div className="grid grid-cols-3 gap-4 my-4 border-b-2 shadow-md p-2">
             <h2 className="text-xl font-semibold flex justify-between">
-              <span> Rating</span> <span>:</span>{" "}
+              <span> Rating</span> <span>:</span>
             </h2>
             <div className="text-lg font-bold text-slate-500 col-span-2">
               <StarRatings
@@ -143,16 +132,17 @@ const SingleProductDetails = () => {
             className="bg-blue-500 hover:bg-blue-700 text-white text-xl font-bold py-3 px-8 rounded-lg border"
             type="button"
           >
-            Reset
+            Add to Cart
           </Button>
-          <Button
-            type="button"
-            onClick={() => handleClick(_id)}
-            name="submit"
-            className="bg-[#F14902] hover:bg-orange-700 text-white text-xl font-bold py-3 px-8 rounded-lg animate-pulse border"
-          >
-            <Link to={"/checkout"}> Buy Now</Link>
-          </Button>
+          <Link to="/checkout">
+            <Button
+              onClick={() => handleClick(_id)}
+              className="bg-red-500 hover:bg-red-700 text-white text-xl font-bold py-3 px-8 rounded-lg border"
+              type="button"
+            >
+              Buy Now
+            </Button>
+          </Link>
         </div>
       </div>
     </div>

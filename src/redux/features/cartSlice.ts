@@ -9,6 +9,7 @@ export interface CartItem {
 // Define the initial state structure
 export interface CartState {
   items: CartItem[];
+  checkoutSingleProduct: boolean;
 }
 
 // Utility function to load cart items from local storage
@@ -35,6 +36,7 @@ const saveCartToLocalStorage = (cart: CartItem[]) => {
 // Initialize the cart state
 const initialState: CartState = {
   items: loadCartFromLocalStorage(),
+  checkoutSingleProduct: false,
 };
 
 // Create the cart slice
@@ -42,6 +44,10 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
+    setCheckoutSingleProduct: (state, action: PayloadAction<boolean>) => {
+      state.checkoutSingleProduct = action.payload;
+    },
+
     // Add an item to the cart
     addItemToCart: (
       state,
@@ -87,9 +93,12 @@ const cartSlice = createSlice({
 
 // Selector to get cart items from the state
 export const selectCartItems = (state: { cart: CartState }) => state.cart.items;
+export const selectCheckoutSingleProduct = (state: { cart: CartState }) =>
+  state.cart.checkoutSingleProduct;
 
 // Export actions and reducer
 export const {
+  setCheckoutSingleProduct,
   addItemToCart,
   incrementQuantity,
   decrementQuantity,
