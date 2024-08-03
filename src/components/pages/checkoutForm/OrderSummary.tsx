@@ -189,45 +189,45 @@ const OrderSummary = () => {
         })}
         <div className="mt-4">
           <CardDescription className="grid grid-cols-3 gap-4 border shadow-md px-2">
-            <h2 className="font-semibold flex justify-between col-span-2">
+            <span className="font-semibold flex justify-between col-span-2">
               <span>Sub Total</span> <span>:</span>
-            </h2>
-            <p className="text-lg font-bold text-slate-500 text-end">
+            </span>
+            <span className="text-lg font-bold text-slate-500 text-end">
               ${totalGrossPrice.toFixed(2)}
-            </p>
+            </span>
           </CardDescription>
           <CardDescription className="grid grid-cols-3 gap-4 border shadow-md px-2">
-            <h2 className="font-semibold flex justify-between col-span-2">
+            <span className="font-semibold flex justify-between col-span-2">
               <span>Discount (20%)</span> <span>:</span>
-            </h2>
-            <p className="text-lg font-bold text-slate-500 text-end">
+            </span>
+            <span className="text-lg font-bold text-slate-500 text-end">
               ${discount.toFixed(2)}
-            </p>
+            </span>
           </CardDescription>
 
           <CardDescription className="grid grid-cols-3 gap-4 border shadow-md px-2">
-            <h2 className="font-semibold flex justify-between col-span-2">
+            <span className="font-semibold flex justify-between col-span-2">
               <span>VAT (15%)</span> <span>:</span>
-            </h2>
-            <p className="text-lg font-bold text-slate-500 text-end">
+            </span>
+            <span className="text-lg font-bold text-slate-500 text-end">
               ${vat.toFixed(2)}
-            </p>
+            </span>
           </CardDescription>
           <CardDescription className="grid grid-cols-3 gap-4 border shadow-md px-2">
-            <h2 className="font-semibold flex justify-between col-span-2">
+            <span className="font-semibold flex justify-between col-span-2">
               <span>Delivery Charge</span> <span>:</span>
-            </h2>
-            <p className="text-lg font-bold text-slate-500 text-end">
+            </span>
+            <span className="text-lg font-bold text-slate-500 text-end">
               ${deliveryCharge.toFixed(2)}
-            </p>
+            </span>
           </CardDescription>
           <CardDescription className="grid grid-cols-3 gap-4 border shadow-md px-2">
-            <h2 className="text-xl font-bold flex justify-between col-span-2 text-black">
+            <span className="text-xl font-bold flex justify-between col-span-2 text-black">
               <span>Total Price</span> <span>:</span>
-            </h2>
-            <p className="text-xl font-bold text-end text-black">
+            </span>
+            <span className="text-xl font-bold text-end text-black">
               ${totalPrice.toFixed(2)}
-            </p>
+            </span>
           </CardDescription>
         </div>
       </CardContent>

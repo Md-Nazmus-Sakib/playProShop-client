@@ -5,6 +5,8 @@ import cartReducer from "./features/cartSlice";
 import productIdReducer from "./features/productIdSlice";
 
 import orderSummaryReducer from "./features/orderSummarySlice";
+import checkoutReducer from "./features/checkoutSlice";
+
 export const store = configureStore({
   reducer: {
     [baseApi.reducerPath]: baseApi.reducer,
@@ -13,6 +15,7 @@ export const store = configureStore({
     productId: productIdReducer,
 
     orderSummary: orderSummaryReducer,
+    checkout: checkoutReducer,
   },
   middleware: (getDefaultMiddlewares) =>
     getDefaultMiddlewares().concat(baseApi.middleware),

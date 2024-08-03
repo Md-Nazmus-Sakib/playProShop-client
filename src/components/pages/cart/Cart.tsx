@@ -1,5 +1,3 @@
-import { useDispatch } from "react-redux";
-
 import { useGetProductQuery } from "@/redux/api/api";
 import {
   decrementQuantity,
@@ -19,12 +17,12 @@ import {
   CardDescription,
   CardTitle,
 } from "@/components/ui/card";
-import { useAppSelector } from "@/redux/hook";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { Link } from "react-router-dom";
 import { setProductId } from "@/redux/features/productIdSlice";
 
 const Cart = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const cartItems: CartItem[] = useAppSelector(selectCartItems);
 
   const productIds = cartItems.map((item) => item.id);

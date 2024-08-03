@@ -70,6 +70,14 @@ export const baseApi = createApi({
       providesTags: ["products"],
     }),
 
+    createPaymentIntent: builder.mutation({
+      query: (data) => ({
+        url: "/create-payment-intent",
+        method: "POST",
+        body: data,
+      }),
+    }),
+
     addProduct: builder.mutation({
       query: (data) => {
         return {
@@ -79,42 +87,15 @@ export const baseApi = createApi({
         };
       },
     }),
-
-    // getMovieReviews: builder.query({
-    //   query: (slug) => ({
-    //     url: `/movies/${slug}/reviews`,
-    //     method: "GET",
-    //   }),
-    // }),
-
-    // getMovieDetailsAndReviews: builder.query({
-    //   queryFn: async (slug: string): Promise<any> => {
-    //     try {
-    //       const [movieResponse, reviewsResponse] = await Promise.all([
-    //         fetch(`http://localhost:5000/api/movies/${slug}`),
-    //         fetch(`http://localhost:5000/api/movies/${slug}/reviews`),
-    //       ]);
-
-    //       if (!movieResponse.ok || !reviewsResponse.ok) {
-    //         throw new Error("Network response was not ok.");
-    //       }
-    //       const [movieData, reviewsData] = await Promise.all([
-    //         movieResponse.json(),
-    //         reviewsResponse.json(),
-    //       ]);
-
-    //       // Combine results
-    //       return {
-    //         data: {
-    //           movie: movieData,
-    //           reviews: reviewsData,
-    //         },
-    //       };
-    //     } catch (error) {
-    //       return error;
-    //     }
-    //   },
-    // }),
+    submitOrder: builder.mutation({
+      query: (data) => {
+        return {
+          url: "/submitOrder",
+          method: "POST",
+          body: data,
+        };
+      },
+    }),
   }),
 });
 
@@ -123,4 +104,6 @@ export const {
   useGetProductQuery,
   useGetQueryQuery,
   useGetSingleProductQuery,
+  useSubmitOrderMutation,
+  useCreatePaymentIntentMutation,
 } = baseApi;

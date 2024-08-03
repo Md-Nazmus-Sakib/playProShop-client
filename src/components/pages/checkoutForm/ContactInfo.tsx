@@ -1,8 +1,6 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider } from "react-hook-form";
-import { z } from "zod";
 import {
   FormControl,
   FormField,
@@ -13,53 +11,92 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { TCheckoutFormSchema } from "./CheckoutFormValidation";
+import {
+  CheckoutOrderData,
+  TCheckoutFormSchema,
+} from "./CheckoutFormValidation";
 import { Button } from "@/components/ui/button";
-import { useAppSelector } from "@/redux/hook";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { selectOrderSummary } from "@/redux/features/orderSummarySlice";
-
-type CheckoutFormData = z.infer<typeof TCheckoutFormSchema>;
+import { setCheckoutData } from "@/redux/features/checkoutSlice";
+import { useSubmitOrderMutation } from "@/redux/api/api";
+import {
+  CartItem,
+  clearCart,
+  selectCartItems,
+} from "@/redux/features/cartSlice";
+import { areIdsSame } from "./IdMatchCheck";
 
 const ContactInfo = () => {
   const { quantities, totalPrice } = useAppSelector(selectOrderSummary);
   const navigate = useNavigate();
-  const form = useForm<CheckoutFormData>({
+  const dispatch = useAppDispatch();
+  const [submitOrder] = useSubmitOrderMutation();
+  const cartItems: CartItem[] = useAppSelector(selectCartItems);
+  const productIds = cartItems.map((item) => item.id);
+
+  const form = useForm<CheckoutOrderData>({
     resolver: zodResolver(TCheckoutFormSchema),
     defaultValues: {
       userName: "",
       userEmail: "",
       userMobile: "",
       deliveryAddress: "",
-      paymentMethod: "Cash on Delivery",
+      paymentMethod: undefined,
+      orderedProduct: {},
+      totalPrice: 0,
+      orderDate: "",
     },
-    mode: "onChange", // Validate on change to update form state
+    mode: "onChange",
   });
 
-  const { isValid } = form.formState;
+  const {
+    formState: { isValid, errors },
+    handleSubmit,
+    watch,
+  } = form;
 
-  const onSubmit = async (data: CheckoutFormData) => {
+  const paymentMethodValue = watch("paymentMethod");
+
+  const onSubmit = async (data: CheckoutOrderData) => {
     try {
-      console.log({ ...data, quantities, totalPrice });
+      const orderData: CheckoutOrderData = {
+        ...data,
+        orderedProduct: quantities,
+        totalPrice,
+        orderDate: new Date().toISOString(),
+      };
+      dispatch(setCheckoutData(orderData));
+      if (data.paymentMethod === "Cash on Delivery") {
+        const res = await submitOrder({ orderData }).unwrap();
+        if (res?.success) {
+          toast.success("Order Confirmed successfully!");
+          const idsMatch = areIdsSame(productIds, quantities);
+          if (idsMatch) {
+            dispatch(clearCart());
+          }
+          navigate("/order-confirmation");
+        }
+      }
 
       if (data.paymentMethod === "Card Pay") {
         navigate("/payment");
-      } else {
-        toast.success("Checkout successful!");
       }
     } catch (err) {
       console.error("Error:", err);
+      toast.error("Order Confirmation failed. Please try again.");
     }
   };
 
   return (
-    <div className="bg-gray-100  text-black rounded-lg">
+    <div className="bg-gray-100 text-black rounded-lg">
       <div className="flex justify-center items-center mb-6">
         <hr className="border border-blue-500 w-full" />
         <h1 className="text-center text-4xl font-bold mx-4">Contact Details</h1>
         <hr className="border border-blue-500 w-full" />
       </div>
       <FormProvider {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 p-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 p-4">
           <FormField
             control={form.control}
             name="userName"
@@ -74,7 +111,7 @@ const ContactInfo = () => {
                   />
                 </FormControl>
                 <FormMessage>
-                  {form.formState.errors.userName?.message?.toString()}
+                  {errors.userName?.message?.toString()}
                 </FormMessage>
               </FormItem>
             )}
@@ -94,7 +131,7 @@ const ContactInfo = () => {
                   />
                 </FormControl>
                 <FormMessage>
-                  {form.formState.errors.userEmail?.message?.toString()}
+                  {errors.userEmail?.message?.toString()}
                 </FormMessage>
               </FormItem>
             )}
@@ -114,7 +151,7 @@ const ContactInfo = () => {
                   />
                 </FormControl>
                 <FormMessage>
-                  {form.formState.errors.userMobile?.message?.toString()}
+                  {errors.userMobile?.message?.toString()}
                 </FormMessage>
               </FormItem>
             )}
@@ -135,7 +172,7 @@ const ContactInfo = () => {
                   />
                 </FormControl>
                 <FormMessage>
-                  {form.formState.errors.deliveryAddress?.message?.toString()}
+                  {errors.deliveryAddress?.message?.toString()}
                 </FormMessage>
               </FormItem>
             )}
@@ -198,16 +235,21 @@ const ContactInfo = () => {
                     />
                   </label>
                 </div>
+                <FormMessage>
+                  {errors.paymentMethod?.message?.toString()}
+                </FormMessage>
               </FormItem>
             )}
           />
           <div className="flex justify-end">
             <Button
               type="submit"
-              className={`bg-blue-500 hover:bg-blue-700  text-white text-xl font-bold py-3 px-8 rounded-lg ${
-                !isValid ? "opacity-50 cursor-not-allowed" : ""
+              className={`bg-blue-500 hover:bg-blue-700 text-white text-xl font-bold py-3 px-8 rounded-lg ${
+                !isValid || !paymentMethodValue
+                  ? "opacity-50 cursor-not-allowed"
+                  : ""
               }`}
-              disabled={!isValid}
+              disabled={!isValid || !paymentMethodValue}
             >
               Place Order
             </Button>

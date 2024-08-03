@@ -43,9 +43,9 @@ const SingleProductDetails = () => {
             <h1 className="flex justify-between text-3xl font-semibold">
               <span> Details </span> <span>:</span>
             </h1>
-            <p className="text-2xl font-semibold text-slate-700 col-span-2 break-words">
+            <span className="text-2xl font-semibold text-slate-700 col-span-2 break-words">
               {details}
-            </p>
+            </span>
           </div>
         )}
       </div>
@@ -55,9 +55,9 @@ const SingleProductDetails = () => {
             <h1 className="flex justify-between text-3xl font-semibold">
               <span> Description </span> <span>:</span>
             </h1>
-            <p className="text-2xl font-semibold text-slate-700 col-span-2 break-words">
+            <span className="text-2xl font-semibold text-slate-700 col-span-2 break-words">
               {description}
-            </p>
+            </span>
           </div>
         )}
         {productName && (
@@ -65,9 +65,9 @@ const SingleProductDetails = () => {
             <h2 className="text-xl font-semibold flex justify-between">
               <span> Product Name</span> <span>:</span>
             </h2>
-            <p className="text-lg font-bold text-slate-500 col-span-2">
+            <span className="text-lg font-bold text-slate-500 col-span-2">
               {productName}
-            </p>
+            </span>
           </div>
         )}
         {brand && (
@@ -75,9 +75,9 @@ const SingleProductDetails = () => {
             <h2 className="text-xl font-semibold flex justify-between">
               <span> Brand Name</span> <span>:</span>
             </h2>
-            <p className="text-lg font-bold text-slate-500 col-span-2">
+            <span className="text-lg font-bold text-slate-500 col-span-2">
               {brand}
-            </p>
+            </span>
           </div>
         )}
         {category && (
@@ -85,9 +85,9 @@ const SingleProductDetails = () => {
             <h2 className="text-xl font-semibold flex justify-between">
               <span> Category Name</span> <span>:</span>
             </h2>
-            <p className="text-lg font-bold text-slate-500 col-span-2">
+            <span className="text-lg font-bold text-slate-500 col-span-2">
               {category}
-            </p>
+            </span>
           </div>
         )}
         {stockQuantity && (
@@ -95,9 +95,9 @@ const SingleProductDetails = () => {
             <h2 className="text-xl font-semibold flex justify-between">
               <span> Stock Quantity</span> <span>:</span>
             </h2>
-            <p className="text-lg font-bold text-slate-500 col-span-2">
+            <span className="text-lg font-bold text-slate-500 col-span-2">
               {stockQuantity}
-            </p>
+            </span>
           </div>
         )}
         {price && (
@@ -105,9 +105,9 @@ const SingleProductDetails = () => {
             <h2 className="text-xl font-semibold flex justify-between">
               <span> Price</span> <span>:</span>
             </h2>
-            <p className="text-lg font-bold text-slate-500 col-span-2">
+            <span className="text-lg font-bold text-slate-500 col-span-2">
               {price}
-            </p>
+            </span>
           </div>
         )}
         {rating && (
@@ -134,15 +134,15 @@ const SingleProductDetails = () => {
           >
             Add to Cart
           </Button>
-          <Link to="/checkout">
-            <Button
-              onClick={() => handleClick(_id)}
-              className="bg-red-500 hover:bg-red-700 text-white text-xl font-bold py-3 px-8 rounded-lg border"
-              type="button"
-            >
-              Buy Now
-            </Button>
-          </Link>
+
+          <Button
+            onClick={() => handleClick(_id)}
+            className="bg-red-500 hover:bg-red-700 text-white text-xl font-bold py-3 px-8 rounded-lg border"
+            type="button"
+          >
+            {" "}
+            <Link to="/checkout">Buy Now</Link>
+          </Button>
         </div>
       </div>
     </div>
