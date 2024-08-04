@@ -7,6 +7,7 @@ import ConfirmOrder from "@/components/pages/confirmOrder/ConfirmOrder";
 
 import CreateProduct from "@/components/pages/createProduct/CreateProduct";
 import Home from "@/components/pages/home/home/Home";
+import ManageProduct from "@/components/pages/manageProduct/ManageProduct";
 import PaymentPage from "@/components/pages/payment/PaymentPage";
 import SingleProductDetails from "@/components/pages/singleProductDetails/SingleProductDetails";
 import { createBrowserRouter } from "react-router-dom";
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
       {
         path: "payment",
         element: <PaymentPage></PaymentPage>,
+      },
+      {
+        path: "manage-product",
+        element: <ManageProduct></ManageProduct>,
       },
     ],
   },

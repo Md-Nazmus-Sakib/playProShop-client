@@ -42,7 +42,7 @@ const FeaturedProductCard = ({
         </svg>
       </Label>
 
-      <div className="px-3.5 mb-4 break-words">
+      <div className="px-3.5 mb-10 break-words">
         {productName && (
           <div className="font-extrabold ">
             Name:{" "}
@@ -54,26 +54,28 @@ const FeaturedProductCard = ({
         )}
 
         {brand && (
-          <div className="font-extrabold ">
-            Brand: <span className="font-bold text-slate-700"> {brand}</span>
+          <div className="text-black">
+            Brand: <span className=" text-slate-700"> {brand}</span>
           </div>
         )}
         {category && (
-          <div className="font-extrabold ">
-            Category:{" "}
-            <span className="font-bold text-slate-700"> {category}</span>
+          <div className="text-black">
+            Category: <span className=" text-slate-700"> {category}</span>
           </div>
         )}
         {description && (
-          <div className="font-extrabold ">
+          <div className="text-black">
             Description:{" "}
-            <span className="font-bold text-slate-700"> {description}</span>
+            <span className=" text-slate-700">
+              {description.length > 50
+                ? description.slice(0, 50) + "  " + "..."
+                : description}
+            </span>
           </div>
         )}
         {stockQuantity && (
-          <div className="font-extrabold ">
-            Available:{" "}
-            <span className="font-bold text-slate-700"> {stockQuantity}</span>
+          <div className="text-black">
+            Available: <span className=" text-slate-700"> {stockQuantity}</span>
           </div>
         )}
 
@@ -89,7 +91,7 @@ const FeaturedProductCard = ({
         </div>
       </div>
 
-      <div className="flex gap-4">
+      <div className="flex gap-4 absolute bottom-0 w-full left-0 ">
         <Link
           to={`/product/${_id}`}
           className="  flex-auto rounded-[1.4rem_1.4rem_0.7rem_0.7rem] border-[none] py-2 px-[0.5rem_0] bg-[#F14902] text-white font-extrabold cursor-pointer text-center"
