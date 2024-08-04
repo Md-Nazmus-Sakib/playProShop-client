@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { TProduct } from "../home/featuredProduct/FeatureProductType";
 import {
@@ -9,6 +11,8 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useUpdateProductMutation } from "@/redux/api/api";
+import { toast } from "sonner";
 
 interface ProductDialogProps {
   product: TProduct | null;
@@ -17,24 +21,27 @@ interface ProductDialogProps {
 }
 
 const ProductModal = ({ product, isOpen, onClose }: ProductDialogProps) => {
-  const [formData, setFormData] = useState<TProduct>(
-    product || {
-      _id: "",
-      productName: "",
-      description: "",
-      category: "",
-      stockQuantity: 0,
-      brand: "",
-      rating: 0,
-      price: 0,
-      image: "",
-      details: "",
-    }
-  );
+  const initialFormData: TProduct = {
+    _id: "",
+    productName: "",
+    description: "",
+    category: "",
+    stockQuantity: 0,
+    brand: "",
+    rating: 0,
+    price: 0,
+    image: "",
+    details: "",
+  };
+
+  const [formData, setFormData] = useState<TProduct>(initialFormData);
+  const [updateProduct] = useUpdateProductMutation();
 
   useEffect(() => {
     if (product) {
       setFormData(product);
+    } else {
+      setFormData(initialFormData);
     }
   }, [product]);
 
@@ -42,8 +49,21 @@ const ProductModal = ({ product, isOpen, onClose }: ProductDialogProps) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSaveChanges = () => {
-    console.log(formData); // Log the form data or perform any other action here
+  const handleSaveChanges = async (e: React.FormEvent) => {
+    e.preventDefault(); // Prevent the default form submission behavior
+    const { _id, createdAt, updatedAt, ...dataToSend } = formData as any;
+    try {
+      const res = await updateProduct({
+        id: formData._id,
+        data: dataToSend,
+      }).unwrap();
+
+      if (res.success) {
+        toast.success("Product updated successfully");
+      }
+    } catch (error) {
+      toast.error("Failed to update product");
+    }
     onClose();
   };
 
@@ -57,7 +77,7 @@ const ProductModal = ({ product, isOpen, onClose }: ProductDialogProps) => {
         <DialogHeader>
           <DialogTitle>Edit Product</DialogTitle>
         </DialogHeader>
-        <div>
+        <form onSubmit={handleSaveChanges}>
           <div>
             <label>Image URL</label>
             <Input
@@ -128,11 +148,13 @@ const ProductModal = ({ product, isOpen, onClose }: ProductDialogProps) => {
               onChange={handleInputChange}
             />
           </div>
-        </div>
-        <DialogFooter>
-          <Button onClick={handleSaveChanges}>Save Changes</Button>
-          <Button onClick={onClose}>Cancel</Button>
-        </DialogFooter>
+          <DialogFooter>
+            <Button type="submit">Save Changes</Button>
+            <Button type="button" onClick={onClose}>
+              Cancel
+            </Button>
+          </DialogFooter>
+        </form>
       </DialogContent>
     </Dialog>
   );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { TProduct } from "../home/featuredProduct/FeatureProductType";
 import {
   Table,
@@ -9,6 +9,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import { useDeleteProductMutation } from "@/redux/api/api";
+
+import { toast } from "sonner";
 
 interface ProductTableProps {
   allProducts: TProduct[];
@@ -16,14 +19,53 @@ interface ProductTableProps {
   //   onDelete: (productId: string) => void;
 }
 
-const ProductTable: React.FC<ProductTableProps> = ({
-  allProducts,
-  onEdit,
-  //   onDelete,
-}) => {
-  const handleDeleteProduct = (id: string) => {
-    console.log(id);
+const ProductTable = ({ allProducts, onEdit }: ProductTableProps) => {
+  const [deleteProduct] = useDeleteProductMutation();
+  const [productToDelete, setProductToDelete] = useState<string | null>(null);
+
+  const handleDeleteProduct = async () => {
+    if (!productToDelete) return;
+    try {
+      await deleteProduct(productToDelete).unwrap();
+
+      toast.success("Product deleted successfully");
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to delete product");
+    }
   };
+
+  const confirmDeleteProduct = (id: string) => {
+    setProductToDelete(id);
+  };
+  useEffect(() => {
+    if (productToDelete) {
+      toast(
+        <div>
+          <h1 className="text-red-500 mb-4 text-xl">
+            Are you sure you want to delete this product?
+          </h1>
+          <div>
+            <div className="flex justify-between">
+              <Button onClick={() => toast.dismiss()}>No</Button>
+              <Button
+                className="bg-red-500 text-white"
+                onClick={() => {
+                  handleDeleteProduct();
+                  toast.dismiss();
+                }}
+              >
+                Yes
+              </Button>
+            </div>
+          </div>
+        </div>,
+        {
+          duration: Infinity,
+        }
+      );
+    }
+  }, [productToDelete]);
 
   return (
     <Table>
@@ -70,7 +112,7 @@ const ProductTable: React.FC<ProductTableProps> = ({
               </Button>
             </TableCell>
             <TableCell>
-              <Button onClick={() => handleDeleteProduct(product._id)}>
+              <Button onClick={() => confirmDeleteProduct(product._id)}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"

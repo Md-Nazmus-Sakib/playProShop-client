@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+// Define the base API configuration
 export const baseApi = createApi({
-  reducerPath: "baseApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/api" }),
-  tagTypes: ["products", "queries"],
+  reducerPath: "baseApi", // The unique key that the API will be referenced by
+  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/api" }), // Base URL for API requests
+  tagTypes: ["products", "queries"], // Tags used for caching and invalidation
   endpoints: (builder) => ({
+    // GET products with various filters
     getProduct: builder.query({
       query: ({
         category,
@@ -19,6 +21,7 @@ export const baseApi = createApi({
       }) => {
         const params = new URLSearchParams();
 
+        // Append filters to the URLSearchParams
         if (searchTerm) {
           params.append("searchTerm", searchTerm);
         }
@@ -43,23 +46,27 @@ export const baseApi = createApi({
         if (limit !== undefined) {
           params.append("limit", limit);
         }
+
+        // Return the API request configuration
         return {
           url: `/product`,
           method: "GET",
           params: params,
         };
       },
-
-      providesTags: ["products"],
+      providesTags: ["products"], // Tag used for cache invalidation
     }),
+
+    // GET all queries
     getQuery: builder.query({
       query: () => ({
         url: `/query`,
         method: "GET",
       }),
-      providesTags: ["queries"],
+      providesTags: ["queries"], // Tag used for cache invalidation
     }),
 
+    // GET a single product by ID
     getSingleProduct: builder.query({
       query: (id) => {
         return {
@@ -67,9 +74,10 @@ export const baseApi = createApi({
           method: "GET",
         };
       },
-      providesTags: ["products"],
+      providesTags: ["products"], // Tag used for cache invalidation
     }),
 
+    // Create a new payment intent
     createPaymentIntent: builder.mutation({
       query: (data) => ({
         url: "/create-payment-intent",
@@ -78,6 +86,7 @@ export const baseApi = createApi({
       }),
     }),
 
+    // Add a new product
     addProduct: builder.mutation({
       query: (data) => {
         return {
@@ -87,6 +96,8 @@ export const baseApi = createApi({
         };
       },
     }),
+
+    // Submit an order
     submitOrder: builder.mutation({
       query: (data) => {
         return {
@@ -96,9 +107,33 @@ export const baseApi = createApi({
         };
       },
     }),
+
+    // Update an existing product by ID
+    updateProduct: builder.mutation({
+      query: ({ id, data }) => {
+        return {
+          url: `/product/${id}`,
+          method: "PUT",
+          body: data,
+        };
+      },
+      invalidatesTags: ["products"], // Invalidate the products cache to ensure data freshness
+    }),
+
+    // Delete a product by ID
+    deleteProduct: builder.mutation({
+      query: (id) => {
+        return {
+          url: `/product/${id}`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: ["products"], // Invalidate the products cache to ensure data freshness
+    }),
   }),
 });
 
+// Export hooks for API operations
 export const {
   useAddProductMutation,
   useGetProductQuery,
@@ -106,4 +141,6 @@ export const {
   useGetSingleProductQuery,
   useSubmitOrderMutation,
   useCreatePaymentIntentMutation,
+  useUpdateProductMutation,
+  useDeleteProductMutation,
 } = baseApi;
