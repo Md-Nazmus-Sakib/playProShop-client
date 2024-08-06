@@ -26,7 +26,7 @@ const FeaturedProduct = () => {
         <hr className="border border-orange-500 w-full" />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-12">
-        {featuredProducts?.data?.map((featuredProduct: TProduct) => (
+        {featuredProducts?.data?.products.map((featuredProduct: TProduct) => (
           <FeaturedProductCard
             key={featuredProduct?._id}
             featuredProduct={featuredProduct}

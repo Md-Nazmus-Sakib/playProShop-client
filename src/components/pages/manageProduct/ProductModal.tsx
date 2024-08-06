@@ -108,6 +108,7 @@ const ProductModal = ({ product, isOpen, onClose }: ProductDialogProps) => {
               name="category"
               value={formData.category}
               onChange={handleInputChange}
+              readOnly
             />
           </div>
           <div>

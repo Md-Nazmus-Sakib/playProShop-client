@@ -18,6 +18,7 @@ export const baseApi = createApi({
         sort,
         searchTerm,
         limit,
+        page,
       }) => {
         const params = new URLSearchParams();
 
@@ -45,6 +46,9 @@ export const baseApi = createApi({
         }
         if (limit !== undefined) {
           params.append("limit", limit);
+        }
+        if (page !== undefined) {
+          params.append("page", page);
         }
 
         // Return the API request configuration

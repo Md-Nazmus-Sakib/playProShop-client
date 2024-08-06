@@ -14,22 +14,30 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { FormSchema } from "./CreateProductValidation";
 import { useAddProductMutation } from "@/redux/api/api";
 import { toast } from "sonner";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { categories, CreateProductSchema } from "./CreateProductValidation";
 
-// Infer the form data type from the schema
-type FormData = z.infer<typeof FormSchema>;
+type FormData = z.infer<typeof CreateProductSchema>;
 
 const CreateProduct = () => {
   const [addProduct] = useAddProductMutation();
 
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
+  const form = useForm<FormData>({
+    resolver: zodResolver(CreateProductSchema),
     defaultValues: {
       productName: "",
       description: "",
-      category: "",
+      category: undefined,
       brand: "",
       stockQuantity: 0,
       rating: 0,
@@ -42,6 +50,7 @@ const CreateProduct = () => {
   const onSubmit = async (data: FormData) => {
     try {
       const res = await addProduct({ data }).unwrap();
+      form.reset();
 
       if (res?.success) {
         toast.success(res?.message);
@@ -88,14 +97,31 @@ const CreateProduct = () => {
                   name="category"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel htmlFor="category">Category</FormLabel>
+                      <FormLabel htmlFor="category-select">
+                        Select a Category
+                      </FormLabel>
                       <FormControl>
-                        <Input
-                          id="category"
-                          className="text-black"
-                          placeholder="Enter the category"
-                          {...field}
-                        />
+                        <Select
+                          value={field.value ?? ""}
+                          onValueChange={(value) => field.onChange(value)}
+                        >
+                          <SelectTrigger
+                            id="category-select"
+                            className="w-full border-none focus:ring-0 rounded-none text-black"
+                          >
+                            <SelectValue placeholder="Select a Category" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              <SelectLabel>Category</SelectLabel>
+                              {categories.map((category, index) => (
+                                <SelectItem key={index} value={category}>
+                                  {category}
+                                </SelectItem>
+                              ))}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -229,16 +255,14 @@ const CreateProduct = () => {
                     <FormLabel htmlFor="rating">Rating</FormLabel>
                     <FormControl>
                       <StarRatings
-                        rating={Number(field.value) || 0} // Ensure rating is always a number
-                        starRatedColor="gold"
-                        starHoverColor="gold"
-                        changeRating={
-                          (newRating) => field.onChange(newRating.toString()) // Convert newRating to string explicitly
-                        }
+                        rating={field.value}
+                        starRatedColor="orange"
+                        starHoverColor="orange"
+                        changeRating={(newRating) => field.onChange(newRating)}
                         numberOfStars={5}
                         name="rating"
-                        starDimension="24px"
-                        starSpacing="2px"
+                        starDimension="40px"
+                        starSpacing="5px"
                       />
                     </FormControl>
                     <FormMessage />
@@ -247,7 +271,7 @@ const CreateProduct = () => {
               />
               <Button
                 type="submit"
-                className="bg-[#F14902] hover:bg-orange-700 text-white text-xl font-bold py-3 px-8 rounded-lg animate-pulse border"
+                className="bg-orange-500 hover:bg-orange-600 text-white w-full"
               >
                 Submit
               </Button>

@@ -1,8 +1,8 @@
-.image-container img {
+/* .image-container img {
   -o-object-fit: cover;
   object-fit: cover;
   border-radius: inherit;
-}
+} */
 
 input:checked ~ svg {
   animation: bouncing 0.5s;

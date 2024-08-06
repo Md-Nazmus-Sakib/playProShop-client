@@ -27,14 +27,14 @@ const AllPRoductCard = ({ product }: { product: TProduct }) => {
 
   return (
     <div className="relative my-8 flex flex-col border border-[#F14902] bg-amber-100 rounded-xl bg-clip-border text-gray-700 shadow-md hover:scale-105 transition-transform duration-300">
-      <div className="relative mx-4 -mt-6 h-40  rounded-xl bg-blue-gray-500 border border-[#F14902] bg-clip-border text-white shadow-lg shadow-blue-gray-500/40 bg-gradient-to-r from-blue-500 to-blue-600">
+      <div className="relative mx-4 -mt-6 h-[200px]  rounded-xl bg-blue-gray-500 border border-[#F14902] bg-clip-border text-white shadow-lg shadow-blue-gray-500/40 bg-gradient-to-r from-blue-500 to-blue-600">
         <img className="w-full h-full rounded-xl " src={image} alt="" />
         <div className="absolute right-[-10px] bottom-[-1rem] bg-white text-[#F14902] font-extrabold text-[0.9rem] p-2 rounded-[1rem_1rem_2rem_2rem] shadow-[0_0_15px_rgba(100,100,111,0.2)]">
           ${price}
         </div>
         <Label
           htmlFor={_id}
-          className=" absolute w-[19px] h-[19px] top-[5px] right-[5px] cursor-pointer animate-bounce"
+          className=" absolute w-[19px] h-[19px] top-[30px] -right-[18px] cursor-pointer animate-bounce"
         >
           <Input
             id={_id}
@@ -78,7 +78,11 @@ const AllPRoductCard = ({ product }: { product: TProduct }) => {
         {stockQuantity && (
           <div className="font-extrabold ">
             Available:{" "}
-            <span className="font-bold text-slate-700"> {stockQuantity}</span>
+            {stockQuantity > 0 ? (
+              <span className="font-bold text-slate-700"> {stockQuantity}</span>
+            ) : (
+              <span>Not Available</span>
+            )}
           </div>
         )}
 

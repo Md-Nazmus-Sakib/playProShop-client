@@ -26,7 +26,7 @@ const FeaturedProductCard = ({
   return (
     <div className="featuredProductCard relative  bg-slate-300 rounded-xl p-3 shadow-[0px_50px_30px_-20px_rgba(100,100,111,0.2)] transition-all duration-500 ease-in-out ">
       <div className="image-container relative w-full h-[230px] rounded-[0.7rem] rounded-tr-[4rem] mb-4  ">
-        <img className="w-full h-full" src={image} alt="" />
+        <img className="w-full h-full rounded-tr-[4rem]" src={image} alt="" />
         <div className="absolute right-[0.7rem] bottom-[-1rem] bg-white text-[#F14902] font-extrabold text-[0.9rem] p-2 rounded-[1rem_1rem_2rem_2rem] shadow-[0_0_15px_rgba(100,100,111,0.2)]">
           ${price}
         </div>
@@ -74,8 +74,13 @@ const FeaturedProductCard = ({
           </div>
         )}
         {stockQuantity && (
-          <div className="text-black">
-            Available: <span className=" text-slate-700"> {stockQuantity}</span>
+          <div className="font-extrabold ">
+            Available:{" "}
+            {stockQuantity > 0 ? (
+              <span className="font-bold text-slate-700"> {stockQuantity}</span>
+            ) : (
+              <span>Not Available</span>
+            )}
           </div>
         )}
 

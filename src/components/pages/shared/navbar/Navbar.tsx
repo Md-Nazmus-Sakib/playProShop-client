@@ -23,7 +23,6 @@ const components = [
   { title: "Home", link: "/" },
   { title: "Product", link: "/product" },
   { title: "About", link: "/about" },
-
   { title: "Product Management", link: "" },
   { title: "Cart", link: "/cart" },
 ];
@@ -59,6 +58,10 @@ export default function Navbar() {
     };
   }, []);
 
+  const isActivePath = (paths: string[]) => {
+    return paths.some((path) => location.pathname.startsWith(path));
+  };
+
   return (
     <nav className="bg-white shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -81,8 +84,11 @@ export default function Navbar() {
                           <NavigationMenuTrigger
                             onClick={handleToggle}
                             className={`relative px-3 py-2 rounded-md text-sm font-medium ${
-                              location.pathname.startsWith("/create-product") ||
-                              location.pathname.startsWith("/manage-product")
+                              isProductManagementOpen ||
+                              isActivePath([
+                                "/create-product",
+                                "/manage-product",
+                              ])
                                 ? "text-white bg-gray-900"
                                 : "text-gray-700 hover:bg-gray-100"
                             }`}
@@ -90,35 +96,34 @@ export default function Navbar() {
                             Product Management
                           </NavigationMenuTrigger>
                           {isProductManagementOpen && (
-                            <div className="absolute bg-white border rounded-md shadow-lg">
-                              <ul className="py-1">
-                                {productManagementComponents.map(
-                                  (pmComponent, pmIndex) => (
-                                    <li
-                                      className="p-4 border-b-2 shadow-md"
-                                      key={pmIndex}
-                                    >
-                                      <NavLink
-                                        to={pmComponent.link}
-                                        className={({ isActive }) =>
-                                          isActive
-                                            ? "block px-4 py-2 text-sm text-white bg-gray-900"
-                                            : "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                        }
-                                      >
-                                        {pmComponent.title}
-                                      </NavLink>
-                                    </li>
-                                  )
-                                )}
-                              </ul>
+                            <div className="absolute bg-white border rounded-md shadow-lg z-50 mt-2">
+                              {productManagementComponents.map(
+                                (pmComponent) => (
+                                  <NavLink
+                                    to={pmComponent.link}
+                                    key={pmComponent.link}
+                                    onClick={() =>
+                                      setIsProductManagementOpen(false)
+                                    }
+                                    className={`block px-4 py-2 text-sm ${
+                                      location.pathname.startsWith(
+                                        pmComponent.link
+                                      )
+                                        ? "text-white bg-gray-900"
+                                        : "text-gray-700 hover:bg-gray-100"
+                                    }`}
+                                  >
+                                    {pmComponent.title}
+                                  </NavLink>
+                                )
+                              )}
                             </div>
                           )}
                         </div>
                       ) : component.title === "Cart" ? (
                         <NavLink
                           to={component.link}
-                          className="relative px-3 py-2 rounded-md text-sm font-medium text-gray-700 "
+                          className="relative px-3 py-2 rounded-md text-sm font-medium text-gray-700"
                         >
                           <div className="relative flex items-center">
                             <svg
@@ -186,30 +191,39 @@ export default function Navbar() {
                           ? "block px-4 py-2 text-sm text-white bg-gray-900"
                           : "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       }
+                      onClick={() => {
+                        if (component.title === "Product Management") {
+                          setIsProductManagementOpen((prev) => !prev);
+                        }
+                      }}
                     >
                       {component.title}
                     </NavLink>
-                    {component.title === "Product Management" && (
-                      <ul className="ml-4">
-                        {productManagementComponents.map(
-                          (pmComponent, pmIndex) => (
-                            <DropdownMenuItem key={pmIndex} className="w-full">
-                              <NavLink
-                                to={pmComponent.link}
-                                className={({ isActive }) =>
-                                  isActive
-                                    ? "block px-4 py-2 text-sm text-white bg-gray-900"
-                                    : "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                }
+                    {component.title === "Product Management" &&
+                      isProductManagementOpen && (
+                        <ul className="ml-4">
+                          {productManagementComponents.map(
+                            (pmComponent, pmIndex) => (
+                              <DropdownMenuItem
+                                key={pmIndex}
+                                className="w-full"
                               >
-                                {pmComponent.title}
-                              </NavLink>
-                            </DropdownMenuItem>
-                          )
-                        )}
-                      </ul>
-                    )}
-                    <DropdownMenuSeparator className="w-full hover:bg-gray-200 active:bg-blue-500" />
+                                <NavLink
+                                  to={pmComponent.link}
+                                  className={({ isActive }) =>
+                                    isActive
+                                      ? "block px-4 py-2 text-sm text-white bg-gray-900"
+                                      : "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                  }
+                                >
+                                  {pmComponent.title}
+                                </NavLink>
+                              </DropdownMenuItem>
+                            )
+                          )}
+                        </ul>
+                      )}
+                    <DropdownMenuSeparator className="w-full" />
                   </DropdownMenuItem>
                 ))}
                 <DropdownMenuSeparator />

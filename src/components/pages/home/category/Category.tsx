@@ -1,40 +1,46 @@
 import CategoryCard from "./CategoryCard";
 import { TCategory } from "./CategoryType";
-import footballEquipment from "@/assets/images/football_equipment.jpg";
+import fitnessEquipment from "@/assets/images/category/fitness.png";
+import teamEquipment from "@/assets/images/category/team.png";
+import outdoorEquipment from "@/assets/images/category/outdoor.png";
+import waterEquipment from "@/assets/images/category/water.png";
+import cyclingEquipment from "@/assets/images/category/cycling.png";
+import golfEquipment from "@/assets/images/category/golf.png";
 
 const Category = () => {
   const categories: TCategory[] = [
     {
       id: 1,
-      name: "Football Equipment",
-      image: footballEquipment,
+      name: "Fitness Equipment",
+      image: fitnessEquipment,
     },
     {
       id: 2,
-      name: "Basketball Gear",
-      image: footballEquipment,
+      name: "Team Sports Gear",
+      image: teamEquipment,
     },
     {
       id: 3,
-      name: "Baseball Accessories",
-      image: footballEquipment,
+      name: "Outdoor Recreation",
+      image: outdoorEquipment,
     },
     {
       id: 4,
-      name: "Tennis Equipment",
-      image: footballEquipment,
+      name: "Water Sports",
+      image: waterEquipment,
     },
     {
       id: 5,
-      name: "Golf Gear",
-      image: footballEquipment,
+      name: "Cycling",
+      image: cyclingEquipment,
     },
     {
       id: 6,
-      name: "Swimming Gear",
-      image: footballEquipment,
+      name: "Golf",
+      image: golfEquipment,
     },
   ];
+
   return (
     <div className="mt-8">
       <div className="flex justify-center items-center">
