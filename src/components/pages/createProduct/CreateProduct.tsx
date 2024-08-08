@@ -79,10 +79,10 @@ const CreateProduct = () => {
                   name="productName"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel htmlFor="productName">Product Name</FormLabel>
+                      <FormLabel htmlFor="productName1">Product Name</FormLabel>
                       <FormControl>
                         <Input
-                          id="productName"
+                          id="productName1"
                           className="text-black"
                           placeholder="Enter your product name"
                           {...field}
@@ -97,7 +97,7 @@ const CreateProduct = () => {
                   name="category"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel htmlFor="category-select">
+                      <FormLabel htmlFor="category-select1">
                         Select a Category
                       </FormLabel>
                       <FormControl>
@@ -106,7 +106,7 @@ const CreateProduct = () => {
                           onValueChange={(value) => field.onChange(value)}
                         >
                           <SelectTrigger
-                            id="category-select"
+                            id="category-select1"
                             className="w-full border-none focus:ring-0 rounded-none text-black"
                           >
                             <SelectValue placeholder="Select a Category" />
@@ -134,10 +134,10 @@ const CreateProduct = () => {
                   name="brand"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel htmlFor="brand">Brand</FormLabel>
+                      <FormLabel htmlFor="brand1">Brand</FormLabel>
                       <FormControl>
                         <Input
-                          id="brand"
+                          id="brand1"
                           className="text-black"
                           placeholder="Enter the brand name"
                           {...field}
@@ -152,12 +152,12 @@ const CreateProduct = () => {
                   name="stockQuantity"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel htmlFor="stockQuantity">
+                      <FormLabel htmlFor="stockQuantity1">
                         Stock Quantity
                       </FormLabel>
                       <FormControl>
                         <Input
-                          id="stockQuantity"
+                          id="stockQuantity1"
                           className="text-black"
                           placeholder="Enter the stock quantity"
                           type="number"
@@ -175,10 +175,10 @@ const CreateProduct = () => {
                   name="description"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel htmlFor="description">Description</FormLabel>
+                      <FormLabel htmlFor="description1">Description</FormLabel>
                       <FormControl>
                         <Textarea
-                          id="description"
+                          id="description1"
                           className="text-black"
                           placeholder="Enter the product short description"
                           {...field}
@@ -194,10 +194,10 @@ const CreateProduct = () => {
                   name="details"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel htmlFor="details">Details</FormLabel>
+                      <FormLabel htmlFor="details1">Details</FormLabel>
                       <FormControl>
                         <Textarea
-                          id="details"
+                          id="details1"
                           className="text-black"
                           placeholder="Enter product details"
                           {...field}
@@ -214,10 +214,10 @@ const CreateProduct = () => {
                   name="price"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel htmlFor="price">Price</FormLabel>
+                      <FormLabel htmlFor="price1">Price</FormLabel>
                       <FormControl>
                         <Input
-                          id="price"
+                          id="price1"
                           className="text-black"
                           placeholder="0"
                           type="number"
@@ -233,10 +233,10 @@ const CreateProduct = () => {
                   name="image"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel htmlFor="image">Image URL</FormLabel>
+                      <FormLabel htmlFor="image1">Image URL</FormLabel>
                       <FormControl>
                         <Input
-                          id="image"
+                          id="image1"
                           className="text-black"
                           placeholder="Enter the image URL"
                           {...field}
@@ -252,7 +252,7 @@ const CreateProduct = () => {
                 name="rating"
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormLabel htmlFor="rating">Rating</FormLabel>
+                    <div>Rating</div>
                     <FormControl>
                       <StarRatings
                         rating={field.value}

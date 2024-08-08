@@ -60,13 +60,6 @@ const FilterDialog = () => {
     }
   };
 
-  // Handle "Enter" key press
-  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
-      event.preventDefault(); // Prevent form submission
-      handleSearch();
-    }
-  };
   // State for price sorting
   const [checked, setChecked] = useState(false);
 
@@ -139,7 +132,6 @@ const FilterDialog = () => {
             type="text"
             value={searchText}
             onChange={handleInputChange}
-            onKeyPress={handleKeyPress} // Add this line to handle "Enter" key press
           />
           <div className="flex justify-end mt-2">
             <Button
@@ -182,69 +174,73 @@ const FilterDialog = () => {
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               {/* Category Dropdown */}
               <div className="flex flex-col space-y-1.5 my-2 h-full">
-                <Label htmlFor="category-select">Select a Category</Label>
-                <Controller
-                  name="category"
-                  control={control}
-                  render={({ field }) => (
-                    <Select
-                      value={field.value ?? ""}
-                      onValueChange={(value) => field.onChange(value)}
-                    >
-                      <SelectTrigger
-                        id="category-select"
-                        className="w-full border-none focus:ring-0 rounded-none"
+                <Label htmlFor="category-select">
+                  Select a Category
+                  <Controller
+                    name="category"
+                    control={control}
+                    render={({ field }) => (
+                      <Select
+                        value={field.value ?? ""}
+                        onValueChange={(value) => field.onChange(value)}
                       >
-                        <SelectValue placeholder="Select a Category" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          <SelectLabel>Category</SelectLabel>
-                          {queries?.data?.categories?.map(
-                            (category: string, index: number) => (
-                              <SelectItem key={index} value={category}>
-                                {category}
-                              </SelectItem>
-                            )
-                          )}
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                  )}
-                />
+                        <SelectTrigger
+                          id="category-select"
+                          className="w-full mt-4 border-none focus:ring-0 rounded-none"
+                        >
+                          <SelectValue placeholder="Select a Category" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            <SelectLabel>Category</SelectLabel>
+                            {queries?.data?.categories?.map(
+                              (category: string, index: number) => (
+                                <SelectItem key={index} value={category}>
+                                  {category}
+                                </SelectItem>
+                              )
+                            )}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    )}
+                  />
+                </Label>
               </div>
               {/* Brand Dropdown */}
               <div className="flex flex-col space-y-1.5 my-2">
-                <Label htmlFor="brand-select">Select a Brand</Label>
-                <Controller
-                  name="brand"
-                  control={control}
-                  render={({ field }) => (
-                    <Select
-                      value={field.value ?? ""}
-                      onValueChange={(value) => field.onChange(value)}
-                    >
-                      <SelectTrigger
-                        id="brand-select"
-                        className="w-full border-none focus:ring-0 rounded-none"
+                <Label htmlFor="brand-select">
+                  Select a Brand
+                  <Controller
+                    name="brand"
+                    control={control}
+                    render={({ field }) => (
+                      <Select
+                        value={field.value ?? ""}
+                        onValueChange={(value) => field.onChange(value)}
                       >
-                        <SelectValue placeholder="Select a Brand" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          <SelectLabel>Brand</SelectLabel>
-                          {queries?.data?.brands.map(
-                            (brand: string, index: number) => (
-                              <SelectItem key={index} value={brand}>
-                                {brand}
-                              </SelectItem>
-                            )
-                          )}
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                  )}
-                />
+                        <SelectTrigger
+                          id="brand-select"
+                          className="w-full mt-4 border-none focus:ring-0 rounded-none"
+                        >
+                          <SelectValue placeholder="Select a Brand" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            <SelectLabel>Brand</SelectLabel>
+                            {queries?.data?.brands.map(
+                              (brand: string, index: number) => (
+                                <SelectItem key={index} value={brand}>
+                                  {brand}
+                                </SelectItem>
+                              )
+                            )}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    )}
+                  />
+                </Label>
               </div>
               <hr />
               {/* Price Range Slider Min */}
@@ -274,7 +270,7 @@ const FilterDialog = () => {
                     </Tooltip.Trigger>
                     <Tooltip.Content>
                       <div className="p-2 bg-black text-white rounded">
-                        {maxPrice ?? "Loading..."}
+                        {minPrice ?? "Loading..."}
                       </div>
                     </Tooltip.Content>
                   </Tooltip.Root>
@@ -321,19 +317,17 @@ const FilterDialog = () => {
                   name="rating"
                   control={control}
                   render={({ field }) => (
-                    <div id="rating">
-                      <StarRatings
-                        rating={Number(field.value ?? 0)} // Ensure rating is always a number
-                        starRatedColor="gold"
-                        starHoverColor="gold"
-                        changeRating={(newRating) => {
-                          field.onChange(newRating);
-                        }}
-                        numberOfStars={5}
-                        starDimension="24px"
-                        starSpacing="2px"
-                      />
-                    </div>
+                    <StarRatings
+                      rating={Number(field.value ?? 0)}
+                      starRatedColor="gold"
+                      starHoverColor="gold"
+                      changeRating={(newRating) => {
+                        field.onChange(newRating);
+                      }}
+                      numberOfStars={5}
+                      starDimension="24px"
+                      starSpacing="2px"
+                    />
                   )}
                 />
               </div>

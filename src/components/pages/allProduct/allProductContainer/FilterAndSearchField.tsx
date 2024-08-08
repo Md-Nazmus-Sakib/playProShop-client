@@ -12,7 +12,7 @@ const FilterAndSearchField = () => {
           <DialogTrigger asChild>
             <Button variant="outline">Filter</Button>
           </DialogTrigger>
-          <DialogContent className="sm:container h-[400px]  overflow-y-auto md:hidden ">
+          <DialogContent className="sm:container  h-[400px]  overflow-y-auto md:hidden ">
             <DialogTitle></DialogTitle>
             <FilterDialog />
           </DialogContent>

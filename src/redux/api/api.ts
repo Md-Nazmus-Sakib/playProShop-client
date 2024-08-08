@@ -58,7 +58,7 @@ export const baseApi = createApi({
           params: params,
         };
       },
-      providesTags: ["products"], // Tag used for cache invalidation
+      providesTags: ["products", "queries"], // Tag used for cache invalidation
     }),
 
     // GET all queries

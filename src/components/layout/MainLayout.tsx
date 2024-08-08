@@ -5,8 +5,10 @@ import Navbar from "../pages/shared/navbar/Navbar";
 
 const MainLayout = () => {
   return (
-    <div className="mx-auto container">
-      <Navbar></Navbar>
+    <div className="mx-auto max-w-[1440px]">
+      <div className="sticky top-0 z-50">
+        <Navbar></Navbar>
+      </div>
       <div className="min-h-screen">
         <Outlet></Outlet>
       </div>

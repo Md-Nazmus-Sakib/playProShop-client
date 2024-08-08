@@ -36,7 +36,8 @@ const OrderSummary = () => {
 
   useEffect(() => {
     if (data) {
-      const products: TProduct[] = data?.data ?? [];
+      const products: TProduct[] = data?.data?.products ?? [];
+
       const filteredProducts = products.filter((product) =>
         productIds.includes(product._id)
       );
@@ -78,14 +79,14 @@ const OrderSummary = () => {
     return <div>Error loading products.</div>;
   }
 
-  const products: TProduct[] = data?.data ?? [];
-  const filteredProducts = products.filter((product) =>
+  const products: TProduct[] = data?.data?.products ?? [];
+  const filteredProducts = products?.filter((product) =>
     productIds.includes(product._id)
   );
 
   const calculateTotalGrossPrice = (): number => {
     if (productId) {
-      const product = filteredProducts.find((p) => p._id === productId);
+      const product = filteredProducts?.find((p) => p._id === productId);
       return product ? product.price * quantity : 0;
     }
     return cartItems.reduce((total, item) => {
@@ -125,7 +126,7 @@ const OrderSummary = () => {
       </div>
 
       <CardContent>
-        {filteredProducts.map((product: TProduct) => {
+        {filteredProducts?.map((product: TProduct) => {
           const cartItem = cartItems.find((item) => item.id === product._id);
           const itemQuantity = cartItem ? cartItem.quantity : 1;
 

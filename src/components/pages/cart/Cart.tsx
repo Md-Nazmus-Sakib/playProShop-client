@@ -36,7 +36,7 @@ const Cart = () => {
     return <div>Error loading products.</div>;
   }
 
-  const products: TProduct[] = data?.data ?? [];
+  const products: TProduct[] = data?.data?.products ?? [];
 
   // Filter products to match with cart items
   const filteredProducts = products.filter((product) =>
@@ -66,14 +66,14 @@ const Cart = () => {
           <hr className="border border-blue-500 w-full" />
         </div>
 
-        {filteredProducts.length === 0 ? (
+        {filteredProducts?.length === 0 ? (
           <div className="text-3xl font-bold text-center my-12">
             {" "}
             Cart is Empty !!
           </div>
         ) : (
           <CardContent>
-            {filteredProducts.map((product) => {
+            {filteredProducts?.map((product) => {
               const cartItem = cartItems.find(
                 (item) => item.id === product._id
               );

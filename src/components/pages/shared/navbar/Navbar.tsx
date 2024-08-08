@@ -15,7 +15,6 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-
 import { useAppSelector } from "@/redux/hook";
 import { selectCartItems } from "@/redux/features/cartSlice";
 
@@ -39,7 +38,7 @@ export default function Navbar() {
   const location = useLocation();
 
   const handleToggle = () => {
-    setIsProductManagementOpen(!isProductManagementOpen);
+    setIsProductManagementOpen((prevState) => !prevState);
   };
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -80,7 +79,7 @@ export default function Navbar() {
                   {components.map((component, index) => (
                     <NavigationMenuItem key={index}>
                       {component.title === "Product Management" ? (
-                        <div className="relative" ref={productManagementRef}>
+                        <div className="relative">
                           <NavigationMenuTrigger
                             onClick={handleToggle}
                             className={`relative px-3 py-2 rounded-md text-sm font-medium ${
@@ -96,7 +95,10 @@ export default function Navbar() {
                             Product Management
                           </NavigationMenuTrigger>
                           {isProductManagementOpen && (
-                            <div className="absolute bg-white border rounded-md shadow-lg z-50 mt-2">
+                            <div
+                              className="absolute bg-white border rounded-md shadow-lg z-50 mt-2"
+                              ref={productManagementRef}
+                            >
                               {productManagementComponents.map(
                                 (pmComponent) => (
                                   <NavLink

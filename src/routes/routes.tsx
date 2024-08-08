@@ -2,6 +2,7 @@ import MainLayout from "@/components/layout/MainLayout";
 import About from "@/components/pages/about/About";
 import AllProduct from "@/components/pages/allProduct/allProduct/AllProduct";
 import Cart from "@/components/pages/cart/Cart";
+import CategoryProduct from "@/components/pages/categoryProduct/CategoryProduct";
 import CheckoutForm from "@/components/pages/checkoutForm/CheckoutForm";
 import ConfirmOrder from "@/components/pages/confirmOrder/ConfirmOrder";
 
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "product/:id",
         element: <SingleProductDetails></SingleProductDetails>,
+      },
+      {
+        path: "category",
+        element: <CategoryProduct></CategoryProduct>,
       },
       {
         path: "checkout",

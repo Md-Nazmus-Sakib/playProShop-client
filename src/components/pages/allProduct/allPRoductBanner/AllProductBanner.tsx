@@ -16,14 +16,17 @@ const AllProductBanner = () => {
     {
       id: 1,
       image: sliderImage1,
+      text: " Explore the Best Sporting Goods",
     },
     {
       id: 2,
       image: sliderImage2,
+      text: " High-Performance Equipment for All Sports",
     },
     {
       id: 3,
       image: sliderImage3,
+      text: "Your Ultimate Sporting Goods Destination",
     },
   ];
 
@@ -47,6 +50,15 @@ const AllProductBanner = () => {
                     className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
                     alt=""
                   />
+                  <div className="absolute bg-black opacity-50 top-0 w-full h-[300px] rounded-lg "></div>
+                  <div className="absolute top-10 md:top-0 w-full h-full z-10 text-white flex justify-center sm:items-center">
+                    <div>
+                      <h1 className="text-3xl md:text-5xl text-white shadow-2xl font-extrabold shadow-black text-center">
+                        {slider?.text}
+                      </h1>
+                      <div className="w-full h-full text-white flex justify-center items-center mt-8"></div>
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
             </CarouselItem>
@@ -59,19 +71,6 @@ const AllProductBanner = () => {
           &#9654;
         </CarouselNext>
       </Carousel>
-      <div className="absolute bg-black opacity-50 top-0 w-full h-[300px] rounded-lg "></div>
-      <div className="absolute top-0 w-full h-full z-10 text-white flex justify-center items-center">
-        <div>
-          <h1 className="text-3xl md:text-5xl text-white shadow-2xl font-extrabold shadow-black text-center">
-            Explore the Best Sporting Goods
-          </h1>
-          <div className="w-full h-full text-white flex justify-center items-center mt-8">
-            <button className="bg-[#F14902] hover:bg-orange-700 text-white text-xl font-bold py-3 px-8 rounded-lg animate-pulse border ">
-              Buy Now
-            </button>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };

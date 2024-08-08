@@ -1,7 +1,8 @@
 import { TCategory } from "./CategoryType";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { setFilters } from "@/redux/features/querySlice";
+import { setCategory } from "@/redux/features/categorySlice";
+
 import { useAppDispatch } from "@/redux/hook";
 import { useNavigate } from "react-router-dom";
 
@@ -11,11 +12,8 @@ const CategoryCard = ({ category }: { category: TCategory }) => {
   const dispatch = useAppDispatch();
 
   const handleDetailsClick = (name: string) => {
-    const filterField = {
-      category: name,
-    };
-    dispatch(setFilters(filterField));
-    navigate("/product");
+    dispatch(setCategory(name));
+    navigate("/category");
   };
 
   return (
@@ -29,7 +27,7 @@ const CategoryCard = ({ category }: { category: TCategory }) => {
         <div className="absolute -z-10 left-0 w-full h-28 opacity-0 duration-500 group-hover:opacity-50 group-hover:bg-blue-900"></div>
         <span className="text-xl font-bold block my-4">{name}</span>
         <Button
-          className="group-hover:opacity-100 w-56 duration-500 opacity-0"
+          className="group-hover:opacity-100 w-56 duration-500 opacity-0 bg-orange-500 hover:bg-orange-700"
           onClick={() => handleDetailsClick(name)}
         >
           Details

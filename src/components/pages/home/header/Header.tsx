@@ -7,6 +7,8 @@ import banner_2 from "@/assets/images/productBanner/img-2.png";
 import banner_3 from "@/assets/images/productBanner/img-3.png";
 import banner_4 from "@/assets/images/productBanner/img-4.png";
 import banner_5 from "@/assets/images/productBanner/img-5.png";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const settings = {
@@ -39,14 +41,14 @@ const Header = () => {
               Explore the Best
             </h2>
             <h1 className="text-7xl md:text-5xl lg:text-7xl font-extrabold my-8 uppercase text-[#F14902] tracking-wide">
-              30% OFF
+              20% OFF
             </h1>
             <h2 className="text-5xl md:text-3xl lg:text-5xl font-extrabold my-8 uppercase tracking-wide flex justify-end">
               Sporting Goods
             </h2>
-            <button className="bg-[#F14902] hover:bg-orange-700 text-white text-xl font-bold py-3 px-8 rounded-lg animate-pulse">
-              Buy Now
-            </button>
+            <Button className="bg-[#F14902] hover:bg-orange-700 text-white text-xl font-bold py-3 px-8 rounded-lg animate-pulse">
+              <Link to={"/product"}> Buy Now</Link>
+            </Button>
           </div>
           <div className="absolute bottom-8 animate-bounce w-12 h-12"></div>
         </div>

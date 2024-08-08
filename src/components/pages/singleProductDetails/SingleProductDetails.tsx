@@ -6,6 +6,7 @@ import StarRatings from "react-star-ratings";
 import { useDispatch } from "react-redux";
 
 import { setProductId } from "@/redux/features/productIdSlice";
+import { addItemToCart } from "@/redux/features/cartSlice";
 
 const SingleProductDetails = () => {
   const dispatch = useDispatch();
@@ -34,6 +35,10 @@ const SingleProductDetails = () => {
   const handleClick = (id: string) => {
     dispatch(setProductId(id));
   };
+  const handleAddToCart = (id: string) => {
+    dispatch(addItemToCart({ id, quantity: 1 }));
+  };
+
   return (
     <div className="md:flex gap-4 my-12">
       <div className="flex-1">
@@ -129,6 +134,7 @@ const SingleProductDetails = () => {
         )}
         <div className="flex justify-between w-full">
           <Button
+            onClick={() => handleAddToCart(_id)}
             className="bg-blue-500 hover:bg-blue-700 text-white text-xl font-bold py-3 px-8 rounded-lg border"
             type="button"
           >
