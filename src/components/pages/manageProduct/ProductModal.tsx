@@ -141,7 +141,7 @@ const ProductModal = ({ product, isOpen, onClose }: ProductDialogProps) => {
             <label>Price</label>
             <Input name="price" value={formData.price} type="number" readOnly />
           </div>
-          <div>
+          <div className="my-2">
             <label>Details</label>
             <Input
               name="details"
@@ -150,9 +150,11 @@ const ProductModal = ({ product, isOpen, onClose }: ProductDialogProps) => {
             />
           </div>
           <DialogFooter>
-            <Button type="submit">Save Changes</Button>
-            <Button type="button" onClick={onClose}>
+            <Button className="my-2" type="button" onClick={onClose}>
               Cancel
+            </Button>
+            <Button className="my-2" type="submit">
+              Save Changes
             </Button>
           </DialogFooter>
         </form>

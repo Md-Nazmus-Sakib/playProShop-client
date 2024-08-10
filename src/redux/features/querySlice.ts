@@ -11,6 +11,7 @@ type TFilters = {
 
 const initialState = {
   category: "",
+
   brand: "",
   minPrice: 0,
   maxPrice: 100,

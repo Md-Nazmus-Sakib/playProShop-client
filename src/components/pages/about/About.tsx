@@ -1,5 +1,6 @@
 import ContactInfo from "./ContactInfo";
 import Mission from "./Mission";
+import MyLocation from "./MyLocation";
 import Overview from "./Overview";
 
 const About = () => {
@@ -8,6 +9,7 @@ const About = () => {
       <Overview></Overview>
       <Mission></Mission>
       <ContactInfo></ContactInfo>
+      <MyLocation></MyLocation>
     </div>
   );
 };

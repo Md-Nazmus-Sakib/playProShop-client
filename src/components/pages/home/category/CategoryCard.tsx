@@ -1,7 +1,8 @@
 import { TCategory } from "./CategoryType";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { setCategory } from "@/redux/features/categorySlice";
+
+import { setFilters } from "@/redux/features/querySlice";
 
 import { useAppDispatch } from "@/redux/hook";
 import { useNavigate } from "react-router-dom";
@@ -12,10 +13,9 @@ const CategoryCard = ({ category }: { category: TCategory }) => {
   const dispatch = useAppDispatch();
 
   const handleDetailsClick = (name: string) => {
-    dispatch(setCategory(name));
-    navigate("/category");
+    dispatch(setFilters({ category: name }));
+    navigate("/product");
   };
-
   return (
     <Card className="relative group cursor-pointer overflow-hidden duration-500 h-64 bg-zinc-800 text-gray-50 p-5">
       <img

@@ -3,14 +3,17 @@ import { useGetProductQuery } from "@/redux/api/api";
 import FilterAndSearchField from "./FilterAndSearchField";
 import ProductContainer from "./ProductContainer";
 import Loader from "../../shared/loader/Loader";
-import { TProduct } from "../../home/featuredProduct/FeatureProductType";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 
+import { TProduct } from "../../home/featuredProduct/FeatureProductType";
+// import { selectCategory } from "@/redux/features/categorySlice";
+
 const AllProductContainer = () => {
   const filters = useSelector((state: RootState) => state.filters);
+  // const category = useSelector(selectCategory);
   const [page, setPage] = useState(1);
-  const limit = 9; // Or any other number you want for items per page
+  const limit = 9;
 
   const { data, isLoading, isError } = useGetProductQuery({
     page,
@@ -27,7 +30,6 @@ const AllProductContainer = () => {
   }
 
   const products: TProduct[] = data?.data?.products ?? [];
-
   const totalProducts: number = data?.data?.totalProducts ?? 0;
   const totalPages = Math.ceil(totalProducts / limit);
 

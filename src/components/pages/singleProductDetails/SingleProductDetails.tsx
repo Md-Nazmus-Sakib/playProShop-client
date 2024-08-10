@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 
 import { setProductId } from "@/redux/features/productIdSlice";
 import { addItemToCart } from "@/redux/features/cartSlice";
+import { toast } from "sonner";
 
 const SingleProductDetails = () => {
   const dispatch = useDispatch();
@@ -37,6 +38,7 @@ const SingleProductDetails = () => {
   };
   const handleAddToCart = (id: string) => {
     dispatch(addItemToCart({ id, quantity: 1 }));
+    toast.success("Product add to cart successfully");
   };
 
   return (

@@ -6,6 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { TProduct } from "./FeatureProductType";
 import { Link } from "react-router-dom";
+import { useAppDispatch } from "@/redux/hook";
+import { addItemToCart } from "@/redux/features/cartSlice";
+import { toast } from "sonner";
 
 const FeaturedProductCard = ({
   featuredProduct,
@@ -23,6 +26,11 @@ const FeaturedProductCard = ({
     price,
     image,
   } = featuredProduct;
+  const dispatch = useAppDispatch();
+  const handleAddToCart = (id: string) => {
+    dispatch(addItemToCart({ id, quantity: 1 }));
+    toast.success("Product add to cart successfully");
+  };
   return (
     <div className="featuredProductCard relative  bg-slate-300 rounded-xl p-3 shadow-[0px_50px_30px_-20px_rgba(100,100,111,0.2)] transition-all duration-500 ease-in-out ">
       <div className="image-container relative w-full h-[230px] rounded-[0.7rem] rounded-tr-[4rem] mb-4  ">
@@ -103,7 +111,10 @@ const FeaturedProductCard = ({
         >
           details
         </Link>
-        <Button className="grid place-content-center w-12 rounded-[1.4rem_1.4rem_0.7rem_0.7rem] border-[none] py-2 px-[0.5rem_0] bg-[#F14902] text-white font-extrabold cursor-pointer">
+        <Button
+          onClick={() => handleAddToCart(_id)}
+          className="grid place-content-center w-12 rounded-[1.4rem_1.4rem_0.7rem_0.7rem] border-[none] py-2 px-[0.5rem_0] bg-[#F14902] text-white font-extrabold cursor-pointer"
+        >
           <svg
             viewBox="0 0 27.97 25.074"
             xmlns="http://www.w3.org/2000/svg"

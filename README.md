@@ -1,30 +1,151 @@
-# React + TypeScript + Vite
+<div align="center">
+  <h1>Sporting Goods E-Commerce Platform</h1>
+</div>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+---
 
-Currently, two official plugins are available:
+# Project Name: 🏅 🏅PlayProShop 🏅 🏅
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Live URL
 
-## Expanding the ESLint configuration
+Live URL is https://
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Overview Video URL
 
-- Configure the top-level `parserOptions` property like this:
+Project Overview Video link:
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+## Git Backend URL
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Git Backend Link is https://github.com/Md-Nazmus-Sakib/playProShop-server
+
+## Git Frontend URL
+
+Git Frontend Link is https://github.com/Md-Nazmus-Sakib/playProShop-client
+
+## Introduction
+
+A comprehensive e-commerce platform for a sporting goods business, designed to provide customers with an excellent shopping experience and easy management of products and orders.
+
+## Project Description
+
+This project aims to build a user-friendly and efficient e-commerce website where users can browse, filter, and purchase a wide range of sports equipment and accessories. The platform combines functionalities into a single user role, simplifying the management and shopping process.
+
+## Features
+
+- **Responsive Navbar & Footer**: Easy navigation with a well-structured menu and footer containing quick links and social media icons.
+- **Homepage with Hero Section**: Dynamic carousel displaying promotional content.
+- **Featured Products Section**: Latest products with detailed information and quick access to product pages.
+- **Category-Based Product Filtering**: Users can filter products by categories.
+- **Contact Us Form**: A form for customer inquiries.
+- **All Products Page**: Comprehensive listing with search, filter, and sorting functionalities.
+- **Single Product Page**: Detailed product information with Add to Cart functionality.
+- **Cart Management**: View and manage items in the cart with quantity adjustments.
+- **Checkout Process**: Buyers information with multiple payment options. View and manage items in with quantity adjustments and a total price summary including VAT and discount.
+- **Manage Products Page**: Any User Can capabilities to add, update, and delete products.
+- **Backend Integration**: Robust backend with Node.js, Express.js, Mongoose, and TypeScript for managing inventory and orders.
+
+## Technology Stack
+
+- **Frontend**:
+
+  - React ⚛️
+  - Redux 🌀
+  - TypeScript
+  - React-slider
+  - React-rating
+  - React-rating-stars-component
+  - Stripe
+    etc
+
+- **Backend**:
+
+  - Node.js 🟢
+  - Express.js 🌐
+  - Mongoose 🍃
+  - TypeScript
+
+- **Database**:
+
+  - MongoDB
+
+- **Other Tools**:
+
+  - React-Rating
+
+  - RTK Query
+  - Stripe
+
+## Installation Guideline For Backend
+
+### Installation Steps
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/Md-Nazmus-Sakib/playProShop-server
+   cd playProShop-server
+   ```
+
+2. **Install dependencies:**
+
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables:**
+
+   Create a `.env` file in the root directory and add the following variables:
+
+   ```env
+   NODE_ENV=development
+   PORT=5000
+   DATABASE_URL=your mongodb connection/playProShop?...
+   STRIPE_SECRET_KEY=your stripe secret key
+   ```
+
+   Replace `your_mongodb_connection_string` with your actual MongoDB connection string and `stripe-secret-key` with a secure secret key for Stripe.
+
+### Running the Application
+
+1. **Start the server:**
+
+   ```bash
+   npm run start:dev
+   ```
+
+   The server should be running on `http://localhost:5000`.
+
+## Installation Guideline For Frontend
+
+### Installation Steps
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/Md-Nazmus-Sakib/playProShop-client
+   cd playProShop-client
+   ```
+
+2. **Install dependencies:**
+
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables:**
+
+   Create a `.env.local` file in the root directory and add the following variables:
+
+   ```env
+   VITE_payment_gateway_pk=Your Stripe Payment Gateway
+   ```
+
+   Replace ` Stripe Payment Gateway` with a secure secret key for Stripe.
+
+### Running the Application
+
+1. **Start the frontend:**
+
+   ```bash
+   npm run dev
+   ```

@@ -6,6 +6,7 @@ import StarRatings from "react-star-ratings";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addItemToCart } from "@/redux/features/cartSlice";
+import { toast } from "sonner";
 
 const AllPRoductCard = ({ product }: { product: TProduct }) => {
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ const AllPRoductCard = ({ product }: { product: TProduct }) => {
 
   const handleAddToCart = (id: string) => {
     dispatch(addItemToCart({ id, quantity: 1 }));
+    toast.success("Product add to cart successfully");
   };
 
   return (
