@@ -47,7 +47,7 @@ const SingleProductDetails = () => {
         <img className="w-full max-h-[500px]" src={image} alt="" />
         {details && (
           <div className="grid grid-cols-3 gap-4 border-b-2 shadow-md my-12 p-2">
-            <h1 className="flex justify-between text-3xl font-semibold">
+            <h1 className="flex justify-between text-xl font-semibold">
               <span> Details </span> <span>:</span>
             </h1>
             <span className="text-2xl font-semibold text-slate-700 col-span-2 break-words">
@@ -59,7 +59,7 @@ const SingleProductDetails = () => {
       <div className="flex-1">
         {description && (
           <div className="grid grid-cols-3 gap-4 border-b-2 shadow-md p-2">
-            <h1 className="flex justify-between text-3xl font-semibold">
+            <h1 className="flex justify-between text-xl font-semibold">
               <span> Description </span> <span>:</span>
             </h1>
             <span className="text-2xl font-semibold text-slate-700 col-span-2 break-words">
