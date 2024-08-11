@@ -4,7 +4,9 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 // Define the base API configuration
 export const baseApi = createApi({
   reducerPath: "baseApi", // The unique key that the API will be referenced by
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/api" }), // Base URL for API requests
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://play-pro-shop-server.vercel.app",
+  }), // Base URL for API requests
   tagTypes: ["products", "queries"], // Tags used for caching and invalidation
   endpoints: (builder) => ({
     // GET products with various filters

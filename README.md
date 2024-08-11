@@ -8,15 +8,19 @@
 
 ## Live URL
 
-Live URL is https://
+Live URL is https://play-pro-shop-client.vercel.app/
 
 ## Overview Video URL
 
 Project Overview Video link:
 
-## Git Backend URL
+## Git Server URL
 
-Git Backend Link is https://github.com/Md-Nazmus-Sakib/playProShop-server
+Git Server Link is https://github.com/Md-Nazmus-Sakib/playProShop-server
+
+## Server Live Link
+
+Server Live Link is https://play-pro-shop-server.vercel.app/
 
 ## Git Frontend URL
 

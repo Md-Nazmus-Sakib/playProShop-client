@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useAppSelector, useAppDispatch } from "@/redux/hook";
 import { useGetProductQuery } from "@/redux/api/api";
 import {
